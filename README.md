@@ -18,11 +18,20 @@ Our target audience is those interested in the revisiting the events, feelings, 
 * Does linking the article affect ones engagement on twitter?
 * Does a new published article relates to quantity of tweets? 
 * Are there any other factors or trends in tweeting? 
+
 ## Technical Description
-The data will be read using an API and a static .csv file. 
+The data will be read using an API and a static .csv file. We will be filtering the data significantly to reduce its size for running as well as transforming both the CSV And the json data into R data frames. 
+We will most likely need to create small test files as well. 
+We will use the following packages as well as additional ones yet to be determined. 
+* sentimentanalysis -takes string and returns sentiment
+* NLP - POS tokenizing and string analysis
+* plotly - plotting
+* ggplot - plotting and long/lat data
+We hope we can understand a relationship between distance from Charlottesville affecting the quantity the content of the tweets. We will also look for relationships between article publishing and quantity. 
+We are expecting many challenges with this project including and especially the learning curve to using the new technology. There will be a learning curve to using natural language processors, and understanding how the NYT API works. Once we get over those hurdles, it should work out for us but there is a significant initial time dedication necessary for this. 
 ## Project Set Up
 
 Our project can be found here at: https://github.com/madigan-99/blue-cat-33
-
+Our project description can be found [here](https://docs.google.com/document/d/1QKxJONnqVa6tjy7QvqlrREe767OG9fCvibo2TRsle4E/edit?usp=sharing)
 
 
