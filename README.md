@@ -28,8 +28,10 @@ We will use the following packages as well as additional ones yet to be determin
 * plotly - plotting
 * ggplot - plotting and long/lat data
 
+
 We hope we can understand a relationship between distance from Charlottesville affecting the quantity the content of the tweets. We will also look for relationships between article publishing and quantity. 
 We are expecting many challenges with this project including and especially the learning curve to using the new technology. There will be a learning curve to using natural language processors, and understanding how the NYT API works. Once we get over those hurdles, it should work out for us but there is a significant initial time dedication necessary for this. 
+
 ## Project Set Up
 
 Our project can be found here at: https://github.com/madigan-99/blue-cat-33
