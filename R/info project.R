@@ -31,27 +31,3 @@ nyt_data <- rbind_pages(pages)
 
 View(nyt_data)
 
-first_graph <- function(date, name) {
-  if (name == "Twitter") {
-    twitter <- read.csv("data/tweet_count_time_series.csv", stringsAsFactors = FALSE)
-    twitter_data <- twitter %>% group_by(created_at_day, created_at_hour) %>% summarise(sum_count = sum(tweet_count)) %>%
-      filter(created_at_day %in% date)
-    ggplot(data = twitter_data, aes(x = created_at_hour, y = sum_count, group = created_at_day, colour = as.factor(created_at_day)))+
-      geom_line()
-  } else {
-    NYT <- nyt_data %>% mutate(day = day(response.docs.pub_date)) %>% select(day) %>% 
-      group_by(day) %>% count(day) %>% filter(day %in% date)
-    
-    ggplot(data = NYT, aes(x = day, y = n, fill = day)) +
-      geom_bar(stat = "identity") +
-      theme_classic() +
-      labs(
-        x = "The date article published",
-        y = "The number of article published",
-        title = paste(
-          "New York Time paper article"
-        )
-      )
-  }
-}
-
