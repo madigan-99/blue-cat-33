@@ -54,9 +54,6 @@ first_graph <- function(date, name) {
   }
 }
 
-date <- c("16", "17", "18", "19")
-
-first_graph(date, "NYT")
 
 
 
