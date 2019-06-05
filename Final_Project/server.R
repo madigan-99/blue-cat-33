@@ -9,7 +9,6 @@ library("tidytext")
 library("tidyr")
 library("plotly")
 library("jsonlite")
-library("RColorBrewer")
 data(stop_words)
 
 
@@ -90,3 +89,5 @@ shinyServer(function(input, output) {
           sem ullamcorper lacinia vestibulum. ")
   })
 })
+
+

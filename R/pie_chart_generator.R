@@ -27,12 +27,8 @@ pct_graph_twitter<- function(dfs, day)
   p <- plot_ly(twitter_summary_pct, labels = ~sentiment, values = ~s_sum, type = 'pie') %>%
     
     layout(title = paste("Percentage of Positive and Negative Tweets on August", day),
-           xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE, title = "Positive"),
-           yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE, title = "Negative"), 
-           margin = m,
-           font = list(color = "#C0C0C0"),
-           paper_bgcolor = "transparent",
-           plot_bgcolor = "transparent")
+           xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+           yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE), margin = m)
   return(p)
 }
 
@@ -54,11 +50,8 @@ pct_graph_nyt<- function(dfs, day)
   )
   p <- plot_ly(nyt_summary_pct, labels = ~sentiment, values = ~s_sum, type = 'pie') %>%
     layout(title = paste("Percentage of Positive and Negative Words in the NYT Selections on August", day),
-           xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE, title = "Positive"),
-           yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE, title = "Negative"), margin = m, 
-           font = list(color = "#C0C0C0"),
-           paper_bgcolor = "transparent",
-           plot_bgcolor = "transparent")
+           xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+           yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE), margin = m)
   return(p)
 }
 
