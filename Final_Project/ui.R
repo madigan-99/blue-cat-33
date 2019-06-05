@@ -88,15 +88,25 @@ shinyUI(
                       .member hr{
                         width: 60%;
                       }
-                      .analysis {
+                      
+                      .analysis{
                         margin: 1em;
                         margin-left: -.5em;
-                        border: 2px solid black;
+                        border: 1.5px solid black;
                         border-radius: 5px; 
-                        padding: 1em;
+                        padding-left: 1.5em;
+                        padding-right: 1.5em;
+                        padding-bottom: 1.5em;
                       }
-                      .analysis .title {
-      
+                      .analysis h2 {
+                        margin-left: 5%;
+                      }
+                      .analysis hr {
+                        width: 90%;
+                      }   
+                      .analysis-title {
+                        color: #FFF;
+                        font-size: 2em;
                       }
                       
                   "))
@@ -161,7 +171,10 @@ shinyUI(
                    tags$div(class = "plot", 
                    plotlyOutput("first-plot")
                    ),
-                   tags$div(class = "analysis", textOutput("analysis_1"))
+                   tags$div(class = "analysis",
+                    titlePanel(tags$h2("Analysis")),
+                    hr(), 
+                    textOutput("analysis_1_content"))
                  )
                    )
                  )
@@ -192,12 +205,14 @@ shinyUI(
                mainPanel(
                  tags$div(class = "plot",
                    plotlyOutput("length_counts")
-                 ), tags$div(class = "analysis", textOutput("analysis_2"))
-               ),
-               position = "left"
-                 )
-             ),
-    
+                 ), 
+                 tags$div(class = "analysis",
+                          titlePanel(tags$h2("Analysis")),
+                          hr(), 
+                          textOutput("analysis_2_content"))
+               )
+             )
+  ),
     #--------------------------------3: Sentiment Analysis-----------------------------#
     tabPanel("Tweet Sentiment Analysis",
              icon = icon("meh"),
@@ -233,13 +248,14 @@ shinyUI(
                  tags$div(class = "plot",
                           plotlyOutput("pie_charts"),
                           plotOutput("top_words")
-                 ), tags$div(class = "analysis", textOutput("analysis_3"))
-                 
-               ),
-              
-               position = "left"
+                 ), 
+                 tags$div(class = "analysis",
+                          titlePanel(tags$h2("Analysis")),
+                          hr(), 
+                          textOutput("analysis_2_content"))
                )
-             ),
+             )
+    ),
     #--------------------------------Twitter User Analysis-----------------------------#
     tabPanel("Twitter User Analysis",
              icon = icon("mobile-alt"),

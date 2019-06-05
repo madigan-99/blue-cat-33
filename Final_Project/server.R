@@ -53,11 +53,6 @@ shinyServer(function(input, output) {
     twitter_engagements(df)
     
   })
-  # 
-  # output$changing_tones <- renderPlot({
-  #   df <- return_df(input$data_type_3, input$choose_date_3)
-  #   make_plot(input$data_type_3, input$choose_date_3, df, input$sentiments)
-  # })
 
   output$pie_charts <- renderPlotly({
     df <- return_df(input$data_type_3, input$choose_date_3)
@@ -69,8 +64,29 @@ shinyServer(function(input, output) {
     make_plot(input$data_type_3, input$choose_date_3, df, input$sentiments, input$n_words)
   })
   
-  output$analysis_1 <- renderText({
-
-    paste("One thing we found notable about this was the ")
+  
+  output$analysis_1_content <- renderText({
+    paste("In mi tortor, placerat a urna id, pulvinar fermentum ligula. 
+          Curabitur quam felis, faucibus rhoncus faucibus a, accumsan id tellus.
+          Ut quam tellus, rhoncus non ipsum a, consectetur mattis odio. Nunc fringilla 
+          sem ullamcorper lacinia vestibulum. ")
+  })
+  output$analysis_2_content <- renderText({
+    paste("In mi tortor, placerat a urna id, pulvinar fermentum ligula. 
+          Curabitur quam felis, faucibus rhoncus faucibus a, accumsan id tellus.
+          Ut quam tellus, rhoncus non ipsum a, consectetur mattis odio. Nunc fringilla 
+          sem ullamcorper lacinia vestibulum. ")
+  })
+  output$analysis_3_content <- renderText({
+    paste("In mi tortor, placerat a urna id, pulvinar fermentum ligula. 
+          Curabitur quam felis, faucibus rhoncus faucibus a, accumsan id tellus.
+          Ut quam tellus, rhoncus non ipsum a, consectetur mattis odio. Nunc fringilla 
+          sem ullamcorper lacinia vestibulum. ")
+  })
+  output$analysis_4_content <- renderText({
+    paste("In mi tortor, placerat a urna id, pulvinar fermentum ligula. 
+          Curabitur quam felis, faucibus rhoncus faucibus a, accumsan id tellus.
+          Ut quam tellus, rhoncus non ipsum a, consectetur mattis odio. Nunc fringilla 
+          sem ullamcorper lacinia vestibulum. ")
   })
 })
