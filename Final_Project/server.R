@@ -64,7 +64,6 @@ shinyServer(function(input, output) {
     make_plot(input$data_type_3, input$choose_date_3, df, input$sentiments, input$n_words)
   })
   
-  
   # output$analysis_1_content <- renderText({
   #   paste("In mi tortor, placerat a urna id, pulvinar fermentum ligula. 
   #         Curabitur quam felis, faucibus rhoncus faucibus a, accumsan id tellus.
