@@ -1,16 +1,3 @@
-day1 <- read.csv("../data/aug15_sample.csv")
-day2 <- read.csv("../data/aug16_sample.csv")
-day3 <- read.csv("../data/aug17_sample.csv")
-day4 <- read.csv("../data/aug18_sample.csv")
-
-# full_concat <- rbind(day1, day2, day3, day4)
-
-library(dplyr)
-library(ggplot2)
-library(stringr)
-library(lubridate)
-library(plotly)
-
 twitter_engagements <- function(data) {
   filter_data <- data %>% select(created_at, user_time_zone,
                                  full_text, is_retweet, hashtags)
