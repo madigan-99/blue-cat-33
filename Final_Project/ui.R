@@ -32,7 +32,9 @@ shinyUI(
                       margin-left: auto;
                       margin-right: auto
                       }
-                      
+                      .plot {
+                        padding: 1.25em;
+                      }
                       hr {
                         width: 90%;
                         color: white;
@@ -101,7 +103,9 @@ shinyUI(
                    ),
                  
                  mainPanel(
+                   tags$div(class = "plot", 
                    plotlyOutput("first-plot")
+                   )
                  )
                    )
                  )
@@ -123,15 +127,16 @@ shinyUI(
                  hr(),
                  tags$div(class = "subtitle", "Filtering Options"),
                  HTML("<p></p>"), 
-              
-                 sliderInput("choose_date", label = h5("Select a Date Range"), min = 16, 
-                             max = 19, step = 1, value = c(17, 18), ticks = FALSE, pre = "AUG ", post = ", 2016")
-                 
+                 checkboxGroupInput("choose_date_2", label = h5("Select a Date Range"),
+                                    choices = list("Aug 15" = "15", "Aug 16" = "16",
+                                                   "Aug 17" = "17", "Aug 18" = "18"
+                                                   ), selected = "18")
                  ),
                
                mainPanel(
-                 plotlyOutput("mean_goal_main_category"),
-                 plotlyOutput("mean_goal_sub_category")
+                 tags$div(class = "plot",
+                   plotlyOutput("length_counts")
+                 )
                ),
                position = "left"
                  )

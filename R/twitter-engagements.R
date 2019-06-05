@@ -2,7 +2,6 @@ twitter_engagements <- function(data) {
   filter_data <- data %>% select(created_at, user_time_zone,
                                  full_text, is_retweet, hashtags)
   
-  filter_data <- na.omit(filter_data)
   pattern <- "https://t.co/"
   col_data <- filter_data %>% mutate(has_hashtag = hashtags != "", 
                                      has_tagged = str_detect(filter_data$full_text, "@"),
@@ -14,23 +13,29 @@ twitter_engagements <- function(data) {
   sort_hashtags <- col_data %>% group_by(has_hashtag) %>% summarise(avg_len = mean(length))
   sort_retweet <- col_data %>% group_by(is_retweet) %>% summarise(avg_len = mean(length))
   
-  Tweet_features <- c("Has Content", "Has Mentions", "Has Hashtags", "Is ReTweet")
+  Tweet_features <- c("Has Content", "Has Mentions", "Has Hashtags", "Is a ReTweet")
   true <- c(sort_content$avg_len[2], sort_tag$avg_len[2],
             sort_hashtags$avg_len[2], sort_retweet$avg_len[2])
   false <-c(sort_content$avg_len[1], sort_tag$avg_len[1],
             sort_hashtags$avg_len[1], sort_retweet$avg_len[1])
   data <- data.frame(Tweet_features, true, false)
-  
+  m <- list(
+    l = 75,
+    r = 75,
+    b = 75,
+    t = 75,
+    pad = 3
+  )
   p <- plot_ly(data, x = ~Tweet_features, y = ~true, type = 'bar', name = 'True', title = "Comparing Tweet Length") %>%
     add_trace(y = ~false, name = 'False') %>%
     layout(title = "Comparing Tweet Length to Features", 
            xaxis = list(title = "Tweet Features"), 
-           yaxis = list(title = 'Average Length'), 
+           yaxis = list(title = 'Average Tweet Character Count'), 
+           margin = m,
            barmode = 'group')
   
-  p
+  return(p)
 
 }
 
-twitter_engagements(day1)
 
