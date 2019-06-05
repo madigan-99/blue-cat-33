@@ -4,33 +4,50 @@ library("tidytext")
 library("dplyr")
 library("ggplot2")
 library("tidyr")
+library("plotly")
+library("jsonlite")
 data(stop_words)
 
 
-make_plot <- function(data_source, day, p_or_n)
+begin_date <- "20170805"
+end_date <- "20170825"
+term <- "Charlottesville+Virginia"
+nyt_key <- "z8ha000iwkU3s7jPUSsH1wG2LfaGVSoZ"
+
+nyt_url <- paste0("http://api.nytimes.com/svc/search/v2/articlesearch.json?q=",term,
+                  "&begin_date=",begin_date,"&end_date=",end_date,
+                  "&facet_filter=true&api-key=",nyt_key, sep="")
+
+initialQuery <- fromJSON(nyt_url)
+maxPages <- round((initialQuery$response$meta$hits[1] / 10)-1) 
+pages <- list()
+for(i in 0:maxPages){
+  nytSearch <- fromJSON(paste0(nyt_url, "&page=", i), flatten = TRUE) %>% data.frame() 
+  message("Retrieving page ", i)
+  pages[[i+1]] <- nytSearch 
+  Sys.sleep(5) 
+}
+
+nyt_data <- rbind_pages(pages)
+
+
+
+
+
+
+
+make_plot <- function(data_source, day, pos_or_neg)
 {
 if(data_source == "Twitter")
 {
-  twitter_function(day, p_or_n)
-}else(data_source == "New York Times")
-{
-  nyt_function(day, p_or_n)
+  dfs <- get_twitter_df(day)
+  twitter_bar_plot(dfs, day, pos_or_neg)
+  pct_graph_twitter(dfs, day)
 }
 }
 
-twitter_pie <- function(word_sentiment_df)
-{
-  twitter_summary <- group_by(word_sentiment_df, sentiment) %>%
-    summarise(
-      sum = sum(n)
-    )
-  bp<- ggplot(twitter_summary, aes(x="", y=sentiment, fill=sum))+
-    geom_bar(width = 1, stat = "identity")
-  day_pie_chart <- bp + coord_polar("y", start=0)
-  day_pie_chart
-}
 
-twitter_function <- function(day, p_or_n)
+get_twitter_df <- function(day)
 {
 if(day == "15")
 {
@@ -56,10 +73,7 @@ twitter_token_df <- twitter_token_df %>%
 twitter_token_df %>%
   count(word, sort = TRUE) 
 
-
 twitter_token_df <- filter(twitter_token_df, word != "trump")
-
-
 sentiment <- get_sentiments("bing")
 
 
@@ -67,38 +81,75 @@ twitter_words_for_plot <- twitter_token_df %>%
   inner_join(sentiment) %>%
   count(word, sentiment, sort = TRUE) %>%
   ungroup()
+return(twitter_words_for_plot)
+}
 
-if(p_or_n == "Positive")
+
+twitter_bar_plot <- function(df, day, pos_or_neg)
+{
+if(pos_or_neg == "Positive")
 {
   twitter_words_for_plot <- filter(twitter_words_for_plot, sentiment == "positive")
-  twitter_ggtitle <- ggtitle(paste("Top 20 Most used", p_or_n, 
+  twitter_ggtitle <- ggtitle(paste("Top 20 Most used", pos_or_neg, 
                                    "Words in Charlottesville Tweets on August",
                                    day))
 }
-else if(p_or_n == "Negative")
+else if(pos_or_neg == "Negative")
 {
     twitter_words_for_plot <- filter(twitter_words_for_plot, sentiment == "negative")
-    twitter_ggtitle <- ggtitle(paste("Top 20 Most Used", p_or_n, 
+    twitter_ggtitle <- ggtitle(paste("Top 20 Most Used", pos_or_neg, 
                                      "Words in Charlottesville Tweets on August",
                                      day))
 }
-else if(p_or_n == "Positive and Negative")
+else if(pos_or_neg == "Positive and Negative")
 {
-  twitter_ggtitle <- ggtitle(paste("Top 20 Most used Words in Charlottesville Wweets on August",
+  twitter_ggtitle <- ggtitle(paste("Top 20 Most used Words in Charlottesville Tweets on August",
                                    day))
 }
 
 top_twenty_words_twitter <- head(twitter_words_for_plot,20)
-
-
 twitter_ggtheme <- theme(axis.text.x = element_text( size = 8, angle = 90))
 
 twitter_plot <- ggplot(data = top_twenty_words_twitter,aes(x = word, y = n)) +
   geom_col(stat = "indentity")
 
-twitter_pie(twitter_words_for_plot)
-twitter_plot + twitter_ggtheme + twitter_ggtitle
 
+twitter_plot + twitter_ggtheme + twitter_ggtitle
 }
+
+
+
+
+pct_graph_twitter<- function(data_frame_twitter, day)
+{
+twitter_summary <- group_by(twitter_words_for_plot, sentiment) %>%
+    summarise(
+      s_sum = sum(n)
+    )
+total_words <- sum(twitter_summary$s_sum)
+twitter_summary_pct <- mutate(twitter_summary,ratio=s_sum/sum(twitter_summary$s_sum))
+p <- plot_ly(twitter_summary_pct, labels = ~sentiment, values = ~s_sum, type = 'pie') %>%
+  layout(title = paste("Percentage of Positive and Negative Tweets on August", day),
+         xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+         yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+p
+}
+
+
+begin_date <- "20170805"
+end_date <- "20170825"
+term <- "Charlottesville+Virginia"
+nyt_key <- "z8ha000iwkU3s7jPUSsH1wG2LfaGVSoZ"
+
+nyt_url <- paste0("http://api.nytimes.com/svc/search/v2/articlesearch.json?q=",term,
+                  "&begin_date=",begin_date,"&end_date=",end_date,
+                  "&facet_filter=true&api-key=",nyt_key, sep="")
+
+
+
+
+
+
+
 
 
