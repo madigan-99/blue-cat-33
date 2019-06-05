@@ -1,4 +1,4 @@
-twitter_popularity <- function(data) {
+twitter_popularity <- function(day) {
   filter_data <- data %>% select(user_statuses_count, user_favorites_count, followers_count)
 
   pattern <- "https://t.co/"
