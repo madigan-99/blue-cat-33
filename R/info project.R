@@ -10,7 +10,7 @@ library(plotly)
 
 twitter <- read.csv("data/tweet_count_time_series.csv", stringsAsFactors = FALSE)
 NYT <- read.csv("data/nyt_data.csv")
-
+View(NYT)
 
 # Make plot function
 
