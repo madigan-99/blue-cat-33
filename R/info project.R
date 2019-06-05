@@ -31,8 +31,8 @@ first_graph <- function(date, name) {
       layout(
         title = "",
         font = list(color = "#C0C0C0"),
-        xaxis = list(title = "Date of Publication"),
-        yaxis = list(title = "Number of Published Articles"),
+        xaxis = list(title = "Hour of Twet"),
+        yaxis = list(title = "Quantity of Related Tweets"),
         paper_bgcolor = "transparent",
         plot_bgcolor = "transparent")
       
