@@ -24,15 +24,26 @@ shinyUI(
       ),
     
     
-    tabPanel("Home",
+    tabPanel("Introduction",
              icon = icon("home"),
-             titlePanel(tags$h2("Charlottesville")),
+             titlePanel(tags$h2("About Charlottesville")),
              
              tags$div(
                id = "intro",
+               HTML("<p>  &nbsp </p>"), img(src = "banner_photo.jpg", width = "70%"), 
                tags$div(
                  id = "container",
-                 "This is our group project"
+                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                 Integer pharetra venenatis ante vitae laoreet. 
+                 Cras consequat mauris in posuere pretium. Pellentesque quis tortor neque. 
+                 Vestibulum volutpat felis vitae tempus viverra. Vivamus nisl magna, pharetra eget turpis ac,
+                 varius vehicula erat. Cras imperdiet tellus nec est molestie fringilla at sed orci. 
+                 Integer porttitor libero sapien, id mattis erat imperdiet in. Morbi semper convallis
+                 enim vitae consectetur. In varius nulla magna, non ullamcorper turpis cursus ac. 
+                 Nullam eget est sed quam mattis laoreet. Sed orci mi, accumsan eu odio at, aliquam 
+                 ultricies nisi. Aliquam varius, felis id posuere venenatis, dolor ligula posuere sapien, 
+                 sed tempor nunc nulla et elit. Mauris ultrices non eros a tincidunt. Class aptent taciti 
+                 sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
                )
                  )
                  ),
@@ -111,10 +122,10 @@ shinyUI(
              icon = icon("users"),
              tags$div(
                id = "container",
-               
-                mainPanel(
-                   plotlyOutput("backers")
-                 )
+               "This project was created by Max Beeson, Liangqi Cai, Divya Rajasekhar, YuYu Madigan
+               in June of 2019 for the Informatics 201 Lecture B final project. This uses data from",
+               tags$a(href = "https://www.kaggle.com/vincela9/charlottesville-on-twitter#aug17_sample.csv", "Kaggle"),
+               " as well as "      
                
              )
     )
