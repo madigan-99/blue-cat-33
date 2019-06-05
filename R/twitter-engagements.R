@@ -12,12 +12,13 @@ twitter_engagements <- function(data) {
   sort_tag <- col_data %>% group_by(has_tagged) %>% summarise(avg_len = mean(length))
   sort_content <- col_data %>% group_by(has_content) %>% summarise(avg_len = mean(length))
   sort_hashtags <- col_data %>% group_by(has_hashtag) %>% summarise(avg_len = mean(length))
-
-  Tweet_features <- c("Has Content", "Has Mentions", "Has Hashtags")
+  sort_retweet <- col_data %>% group_by(is_retweet) %>% summarise(avg_len = mean(length))
+  
+  Tweet_features <- c("Has Content", "Has Mentions", "Has Hashtags", "Is ReTweet")
   true <- c(sort_content$avg_len[2], sort_tag$avg_len[2],
-            sort_hashtags$avg_len[2])
+            sort_hashtags$avg_len[2], sort_retweet$avg_len[2])
   false <-c(sort_content$avg_len[1], sort_tag$avg_len[1],
-            sort_hashtags$avg_len[1])
+            sort_hashtags$avg_len[1], sort_retweet$avg_len[1])
   data <- data.frame(Tweet_features, true, false)
   
   p <- plot_ly(data, x = ~Tweet_features, y = ~true, type = 'bar', name = 'True', title = "Comparing Tweet Length") %>%

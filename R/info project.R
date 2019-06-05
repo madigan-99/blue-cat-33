@@ -8,30 +8,7 @@ library("ggplot2")
 library("lubridate")
 library(plotly)
 
-twitter <- read.csv("C:/Junior Year/INFO/blue-cat-33/data/tweet_count_time_series.csv", stringsAsFactors = FALSE)
-# Get data through NYT API
-begin_date <- "20170805"
-end_date <- "20170825"
-term <- "Charlottesville+Virginia"
-source("~/key.R")
-
-nyt_url <- paste0("http://api.nytimes.com/svc/search/v2/articlesearch.json?q=",term,
-                  "&begin_date=",begin_date,"&end_date=",end_date,
-                  "&facet_filter=true&api-key=",nyt_key, sep="")
-
-initialQuery <- fromJSON(nyt_url)
-maxPages <- round((initialQuery$response$meta$hits[1] / 10)-1) 
-pages <- list()
-for(i in 0:maxPages){
-  nytSearch <- fromJSON(paste0(nyt_url, "&page=", i), flatten = TRUE) %>% data.frame() 
-  message("Retrieving page ", i)
-  pages[[i+1]] <- nytSearch 
-  Sys.sleep(5) 
-}
-
-nyt_data <- rbind_pages(pages)
-
-View(nyt_data)
+twitter <- read.csv("../Final_Project/data/tweet_count_time_series.csv", stringsAsFactors = FALSE)
 
 # Make plot function
 
@@ -42,12 +19,14 @@ my_color <- c(
 )
 
 first_graph <- function(date, name) {
+  date <- as.character(date)
+  
   if (name == "Twitter") {
     twitter <- read.csv("data/tweet_count_time_series.csv", stringsAsFactors = FALSE)
     twitter_data <- twitter %>% group_by(created_at_day, created_at_hour) %>% summarise(sum_count = sum(tweet_count)) %>%
       filter(created_at_day %in% date)
-    plot_ly(twitter_data, x = ~created_at_hour, y = ~sum_count, name = 'High 2014', type = 'scatter', mode = 'lines', 
-            group = twitter_data$created_at_day, line = list(color = my_color[0:length(date)], width = 4))
+    plot_ly(twitter_data, x = ~created_at_hour, y = ~sum_count, name = 'High 2014', type = 'scatter', mode = 'lines+markers', 
+            color = ~as.character(created_at_day), width = 4)
   } else {
     NYT <- nyt_data %>% mutate(day = day(response.docs.pub_date)) %>% select(day) %>% 
       group_by(day) %>% count(day) %>% filter(day %in% date)
@@ -73,6 +52,7 @@ first_graph <- function(date, name) {
     )
   }
 }
+
 
 
 
