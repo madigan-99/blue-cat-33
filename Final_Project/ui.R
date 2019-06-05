@@ -80,10 +80,12 @@ shinyUI(
                  sidebarPanel(
                    id = "sidebar",
                    
-                   tags$div(class = "title", "Analyses of Time and Attention"),
+                   tags$div(class = "title", "Analysis of Time and Attention"),
                       hr(),
                       tags$div(class = "content", "This section analyzes the trends in articles and 
-                               tweets during the four day period."), 
+                               tweets during the four day period. Choose which data structure to 
+                               learn more about, whether that is the New York Times artices or Tweets, and specify a date range 
+                               to show how the quantity of related posts/tweets changed. "), 
                       hr(),
                       tags$div(class = "subtitle", "Filtering Options"),
                    HTML("<p></p>"), 
@@ -92,13 +94,12 @@ shinyUI(
                                 selected = "NYT"),
                    sliderInput("choose_date", label = h5("Select a Date Range"), min = 16, 
                                max = 19, step = 1, value = c(17, 18), ticks = FALSE, pre = "AUG ", post = ", 2016")
-                   
-                   
+          
                    ),
                  
                  mainPanel(
-                   plotlyOutput("rate"),
-                   plotlyOutput("line_rate")
+                   plotlyOutput("first-plot")
+        
                  )
                    )
                  )
@@ -111,9 +112,19 @@ shinyUI(
                
                sidebarPanel(
                  id = "sidebar",
-                 tags$h5("Average Goals"),
+                 tags$div(class = "title", "Analysis of "),
+                 hr(),
+                 tags$div(class = "content", "This section analyzes the trends in articles and 
+                          tweets during the four day period."), 
+                 hr(),
+                 tags$div(class = "subtitle", "Filtering Options"),
+                 HTML("<p></p>"), 
+                 radioButtons("data_type", label = h4("Choose Data"),
+                              choices = list("New York Times" = "NYT", "Twitter" = "Twitter"), 
+                              selected = "NYT"),
+                 sliderInput("choose_date", label = h5("Select a Date Range"), min = 16, 
+                             max = 19, step = 1, value = c(17, 18), ticks = FALSE, pre = "AUG ", post = ", 2016")
                  
-                 uiOutput("categories")
                  ),
                
                mainPanel(
