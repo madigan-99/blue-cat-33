@@ -19,9 +19,9 @@ if(data_source == "Twitter")
   pct_graph_twitter(dfs, day)
 }else(data_source == "New York Times")
   {
-    df <- nyt_data_as_df(day)
-    nyt_bar_plot(df, day, pos_or_neg)
-    pct_graph_nyt(df, day)
+    dfs <- nyt_data_as_df(day)
+    nyt_bar_plot(dfs, day, pos_or_neg)
+    pct_graph_nyt(dfs, day)
 }
 }
 
@@ -60,12 +60,14 @@ twitter_words_for_plot <- twitter_token_df %>%
   inner_join(sentiment) %>%
   count(word, sentiment, sort = TRUE) %>%
   ungroup()
+
 return(twitter_words_for_plot)
 }
 
 
-twitter_bar_plot <- function(df, day, pos_or_neg)
+twitter_bar_plot <- function(dfs, day, pos_or_neg)
 {
+twitter_words_for_plot <- dfs
 if(pos_or_neg == "Positive")
 {
   twitter_words_for_plot <- filter(twitter_words_for_plot, sentiment == "positive")
@@ -80,9 +82,8 @@ else if(pos_or_neg == "Negative")
                                      "Words in Charlottesville Tweets on August",
                                      day))
 }
-else if(pos_or_neg == "Positive and Negative")
+else if(pos_or_neg == "All Words")
 {
-  twitter_token_df <- twitter_token_df
   twitter_ggtitle <- ggtitle(paste("Top 20 Most used Words in Charlottesville Tweets on August",
                                    day))
 }
@@ -94,11 +95,12 @@ twitter_plot <- ggplot(data = top_twenty_words_twitter,aes(x = word, y = n)) +
   geom_col(stat = "indentity")
 
 
-return(twitter_plot + twitter_ggtheme + twitter_ggtitle)
+show(twitter_plot + twitter_ggtheme + twitter_ggtitle)
 }
 
-pct_graph_twitter<- function(data_frame_twitter, day)
+pct_graph_twitter<- function(dfs, day)
 {
+twitter_words_for_plot <- dfs
 twitter_summary <- group_by(twitter_words_for_plot, sentiment) %>%
     summarise(
       s_sum = sum(n)
@@ -132,39 +134,44 @@ nyt_token_df <- nyt_token_df %>%
 return(nyt_token_df)
 }
 
-nyt_bar_plot <- function(df, day, pos_or_neg)
+nyt_bar_plot <- function(dfs, day, pos_or_neg)
 {
-  nyt_token_df <- df
-  nyt_ggtitle <- ggtitle(paste("Most used Words in NYT Charlottesville Coverage on August",
-                               day))
+  nyt_token_df <- dfs
   if(pos_or_neg == "Positive")
   {
-    nyt_token_df <- filter(nyt_token_df, sentiment == "positive")
+    nyt_words_for_plot<- filter(nyt_token_df, sentiment == "positive")
     nyt_ggtitle <- ggtitle(paste("Most used", pos_or_neg, 
                                      "Words in NYT Charlottesville Coverage on August",
                                      day))
   }
   else if(pos_or_neg == "Negative")
   {
-    nyt_token_df <- filter(nyt_token_df, sentiment == "negative")
+    nyt_words_for_plot <- filter(nyt_token_df, sentiment == "negative")
     nyt_ggtitle <- ggtitle(paste("Most used", pos_or_neg, 
                                      "Words in NYT Charlottesville Coverage on August",
                                      day))
   }
+else if(pos_or_neg == "All Words")
+{
+  nyt_words_for_plot <- nyt_token_df
+  nyt_ggtitle <- ggtitle(paste("Most used",
+                               "Words in NYT Charlottesville Coverage on August",
+                               day))
+}
   
-  top_twenty_words_nyt <- head(nyt_token_df,20)
+  top_twenty_words_nyt <- head( nyt_words_for_plot,20)
   nyt_ggtheme <- theme(axis.text.x = element_text( size = 8, angle = 90))
   
   nyt_plot <- ggplot(data = top_twenty_words_nyt,aes(x = word, y = n)) +
     geom_col(stat = "indentity")
   
   
-  return(nyt_plot + nyt_ggtheme + nyt_ggtitle)
+show(nyt_plot + nyt_ggtheme + nyt_ggtitle)
 }
   
-pct_graph_nyt<- function(df, day)
+pct_graph_nyt<- function(dfs, day)
 {
-  nyt_token_df <- df
+  nyt_token_df <- dfs
   nyt_summary <- group_by(nyt_token_df, sentiment) %>%
     summarise(
       s_sum = sum(n)
