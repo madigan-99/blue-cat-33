@@ -15,11 +15,11 @@ data(stop_words)
 
 # loading related documents and library, read in dataset
 
-source("../R/info project.R")
-source("../R/twitter-engagements.R")
-source("../R/words_plotting.R")
-source("../R/pie_chart_generator.R")
-source("../R/words_data.R")
+source("R/info project.R")
+source("R/twitter-engagements.R")
+source("R/words_plotting.R")
+source("R/pie_chart_generator.R")
+source("R/words_data.R")
 
 
 day1 <- read.csv("data/aug15_sample.csv")
@@ -65,28 +65,31 @@ shinyServer(function(input, output) {
   })
   
   
-  output$analysis_1_content <- renderText({
-    paste("In mi tortor, placerat a urna id, pulvinar fermentum ligula. 
-          Curabitur quam felis, faucibus rhoncus faucibus a, accumsan id tellus.
-          Ut quam tellus, rhoncus non ipsum a, consectetur mattis odio. Nunc fringilla 
-          sem ullamcorper lacinia vestibulum. ")
-  })
-  output$analysis_2_content <- renderText({
-    paste("In mi tortor, placerat a urna id, pulvinar fermentum ligula. 
-          Curabitur quam felis, faucibus rhoncus faucibus a, accumsan id tellus.
-          Ut quam tellus, rhoncus non ipsum a, consectetur mattis odio. Nunc fringilla 
-          sem ullamcorper lacinia vestibulum. ")
-  })
-  output$analysis_3_content <- renderText({
-    paste("In mi tortor, placerat a urna id, pulvinar fermentum ligula. 
-          Curabitur quam felis, faucibus rhoncus faucibus a, accumsan id tellus.
-          Ut quam tellus, rhoncus non ipsum a, consectetur mattis odio. Nunc fringilla 
-          sem ullamcorper lacinia vestibulum. ")
-  })
-  output$analysis_4_content <- renderText({
-    paste("In mi tortor, placerat a urna id, pulvinar fermentum ligula. 
-          Curabitur quam felis, faucibus rhoncus faucibus a, accumsan id tellus.
-          Ut quam tellus, rhoncus non ipsum a, consectetur mattis odio. Nunc fringilla 
-          sem ullamcorper lacinia vestibulum. ")
-  })
+  # output$analysis_1_content <- renderText({
+  #   paste("In mi tortor, placerat a urna id, pulvinar fermentum ligula. 
+  #         Curabitur quam felis, faucibus rhoncus faucibus a, accumsan id tellus.
+  #         Ut quam tellus, rhoncus non ipsum a, consectetur mattis odio. Nunc fringilla 
+  #         sem ullamcorper lacinia vestibulum. ")
+  # })
+  # 
+  # output$analysis_2_content <- renderText({
+  #   paste("In mi tortor, placerat a urna id, pulvinar fermentum ligula. 
+  #         Curabitur quam felis, faucibus rhoncus faucibus a, accumsan id tellus.
+  #         Ut quam tellus, rhoncus non ipsum a, consectetur mattis odio. Nunc fringilla 
+  #         sem ullamcorper lacinia vestibulum. ")
+  # })
+  # 
+  # output$analysis_3_content <- renderText({
+  #   paste("In mi tortor, placerat a urna id, pulvinar fermentum ligula. 
+  #         Curabitur quam felis, faucibus rhoncus faucibus a, accumsan id tellus.
+  #         Ut quam tellus, rhoncus non ipsum a, consectetur mattis odio. Nunc fringilla 
+  #         sem ullamcorper lacinia vestibulum. ")
+  # })
+  # 
+  # output$analysis_4_content <- renderText({
+  #   paste("In mi tortor, placerat a urna id, pulvinar fermentum ligula. 
+  #         Curabitur quam felis, faucibus rhoncus faucibus a, accumsan id tellus.
+  #         Ut quam tellus, rhoncus non ipsum a, consectetur mattis odio. Nunc fringilla 
+  #         sem ullamcorper lacinia vestibulum. ")
+  # })
 })

@@ -1,6 +1,6 @@
-library("shiny")
-library("plotly")
-library("shinythemes")
+library(shiny)
+library(plotly)
+library(shinythemes)
 
 # Customized user interface
 shinyUI(
@@ -109,7 +109,8 @@ shinyUI(
                         font-size: 2em;
                       }
                       
-                  "))
+                  ")
+                 )
       ),
     
     
@@ -261,17 +262,21 @@ shinyUI(
              icon = icon("mobile-alt"),
              tags$div(
                id = "container",
-               titlePanel(tags$h5("Backer's Investment Information")),
+              
                sidebarLayout(
                  sidebarPanel(
-                   id = "sidebar",
-                   uiOutput("backer_ui")
+                   id = "sidebar"
+                   
                    ),
                  
                  mainPanel(
-                   plotlyOutput("backers")
+                   tags$div(class = "analysis",
+                            titlePanel(tags$h2("Analysis")),
+                            hr(), 
+                            textOutput("analysis_4_content"))
+                   
                  )
-                   )
+                )
                )
              ),
     #-----------------------------About Page------------------------------#
@@ -313,8 +318,7 @@ shinyUI(
                        tags$div(class = "name", "YuYu Madigan"),
                        hr(),
                        tags$div(class = "description", "YuYu Madigan is a freshman studying informatics."))
-            
-        
+  
                
              )
              )
