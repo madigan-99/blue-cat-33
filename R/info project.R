@@ -8,9 +8,7 @@ library("ggplot2")
 library("lubridate")
 library(plotly)
 
-twitter <- read.csv("data/tweet_count_time_series.csv", stringsAsFactors = FALSE)
-NYT <- read.csv("data/nyt_data.csv")
-View(NYT)
+twitter <- read.csv("../Final_Project/data/tweet_count_time_series.csv", stringsAsFactors = FALSE)
 
 # Make plot function
 
