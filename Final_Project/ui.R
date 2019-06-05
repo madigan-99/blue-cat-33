@@ -112,16 +112,16 @@ shinyUI(
                
                sidebarPanel(
                  id = "sidebar",
-                 tags$div(class = "title", "Analysis of "),
+                 tags$div(class = "title", "Analysis of Tweet Length"), 
                  hr(),
-                 tags$div(class = "content", "This section analyzes the trends in articles and 
-                          tweets during the four day period."), 
+                 tags$div(class = "content", "This section analyzes average length of tweets
+                                   and how these numbers are affected by different features of the 
+                                   tweet including whether the tweet has @ mentions, hashtags,
+                                   media links which include images or external articles, or are retweets."), 
                  hr(),
                  tags$div(class = "subtitle", "Filtering Options"),
                  HTML("<p></p>"), 
-                 radioButtons("data_type", label = h4("Choose Data"),
-                              choices = list("New York Times" = "NYT", "Twitter" = "Twitter"), 
-                              selected = "NYT"),
+              
                  sliderInput("choose_date", label = h5("Select a Date Range"), min = 16, 
                              max = 19, step = 1, value = c(17, 18), ticks = FALSE, pre = "AUG ", post = ", 2016")
                  
