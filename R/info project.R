@@ -29,7 +29,7 @@ first_graph <- function(date, name) {
     plot_ly(twitter_data, x = ~created_at_hour, y = ~sum_count, name = 'High 2014', type = 'scatter', mode = 'lines+markers', 
             color = ~as.character(created_at_day), width = 4) %>%
       layout(
-        title = "",
+        title = "The trend in Twitter during the four day period",
         font = list(color = "#C0C0C0"),
         xaxis = list(title = "Hour of Twet"),
         yaxis = list(title = "Quantity of Related Tweets"),
