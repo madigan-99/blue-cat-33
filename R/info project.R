@@ -9,8 +9,7 @@ library("lubridate")
 library(plotly)
 
 twitter <- read.csv("data/tweet_count_time_series.csv", stringsAsFactors = FALSE)
-NYT <- read.csv("data/nyt_data.csv")
-View(NYT)
+nyt_data <- read.csv("data/nyt_data.csv")
 
 # Make plot function
 
@@ -41,14 +40,14 @@ first_graph <- function(date, name) {
                  hoverinfo = "text",
                  text = ~ paste0(
                    "Date:", "8/", day,
-                   "<br>Number of Atricle:", n
+                   "<br>Number of Article:", n
                  )
     ) %>%
       layout(
-        title = "New York Time",
+        title = "Date vs Quantity of Articles about Charlottesville",
         font = list(color = "#C0C0C0"),
-        xaxis = list(title = "The date atricle published"),
-        yaxis = list(title = "The number of article published"),
+        xaxis = list(title = "Date of Publication"),
+        yaxis = list(title = "Number of Published Articles"),
         paper_bgcolor = "transparent",
         plot_bgcolor = "transparent"
     )

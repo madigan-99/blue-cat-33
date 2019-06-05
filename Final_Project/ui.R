@@ -89,17 +89,19 @@ shinyUI(
                       hr(),
                       tags$div(class = "subtitle", "Filtering Options"),
                    HTML("<p></p>"), 
-                    radioButtons("data_type", label = h4("Choose Data"),
-                                choices = list("New York Times" = "NYT", "Twitter" = "Twitter"), 
-                                selected = "NYT"),
-                   sliderInput("choose_date", label = h5("Select a Date Range"), min = 16, 
-                               max = 19, step = 1, value = c(17, 18), ticks = FALSE, pre = "AUG ", post = ", 2016")
+                    radioButtons("data_type_1", label = h4("Choose Data"),
+                                choices = list("New York Times" = "nyt_data", "Twitter" = "Twitter"), 
+                                selected = "nyt_data"),
+                   
+                   checkboxGroupInput("choose_date_1", label = h5("Select a Date Range"),
+                               choices = list("Aug 15" = "15", "Aug 16" = "16",
+                                              "Aug 17" = "17", "Aug 18" = "18",
+                                              "Aug 19" = "19"), selected = "15")
           
                    ),
                  
                  mainPanel(
                    plotlyOutput("first-plot")
-        
                  )
                    )
                  )
