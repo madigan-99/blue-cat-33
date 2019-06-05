@@ -32,7 +32,9 @@ twitter_engagements <- function(data) {
            xaxis = list(title = "Tweet Features"), 
            yaxis = list(title = 'Average Tweet Character Count'), 
            margin = m,
-           barmode = 'group')
+           barmode = 'group', font = list(color = "#C0C0C0"),
+           paper_bgcolor = "transparent",
+           plot_bgcolor = "transparent")
   
   return(p)
 

@@ -36,8 +36,11 @@ shinyUI(
                       display: block;
                       margin-left: auto;
                       margin-right: auto;
-                      margin-top: 1.5em;
-                      
+                      margin-top: 1em;
+                      }
+
+                      #first-plot{
+                        margin-top: 4em;
                       }
                       .plot {
                       padding: 1.25em;
@@ -100,7 +103,7 @@ shinyUI(
              
              tags$div(
                id = "intro",
-               HTML("<p>  &nbsp </p>"), img(src = "cover_photo.jpg", width = "60%"), 
+               HTML("<p>  &nbsp </p>"), img(src = "cover_photo.jpg", width = "50%"), 
                tags$div(
                  id = "intro-content",
                  
@@ -142,10 +145,10 @@ shinyUI(
                                 selected = "nyt_data"),
                    
                    checkboxGroupInput("choose_date_1", label = h4("Select a Date Range"),
-                                      choices = list("Aug 15" = "15", "Aug 16" = "16",
+                                      choices = list("Aug 16" = "16",
                                                      "Aug 17" = "17", "Aug 18" = "18",
                                                      "Aug 19" = "19"), 
-                                      selected = c("15", "16", "17","18", "19"))
+                                      selected = c("16", "17","18", "19"))
                    
                    ),
                  
@@ -231,13 +234,36 @@ shinyUI(
                  
                )
                )
-             
-             
-             
              ),
     #--------------------------------Twitter User Analysis-----------------------------#
     tabPanel("Twitter User Analysis",
-             icon = icon("mobile-alt")
+             icon = icon("mobile-alt"),
+             sidebarLayout(
+               
+               sidebarPanel(
+                 id = "sidebar",
+                 tags$div(class = "title", "Analysis of Twitter User"), 
+                 hr(),
+                 tags$div(class = "content", "This section analyzes how the twitter user
+                                  engages with their enviornment and the platform."), 
+                 hr(),
+                 tags$div(class = "subtitle", "Filtering Options"),
+                 HTML("<p></p>"), 
+                 checkboxGroupInput("choose_date_3", label = h4("Select a Date Range"),
+                                    choices = list("Aug 15" = "15", "Aug 16" = "16",
+                                                   "Aug 17" = "17", "Aug 18" = "18"
+                                    ), selected = "18")
+                 ),
+               
+               mainPanel(
+                 tags$div(class = "plot",
+                          plotlyOutput("final_chart")
+                          
+                 )
+                 
+               )
+               )
+             
     ),
     #-----------------------------About Page------------------------------#
     tabPanel("About Our Group",
