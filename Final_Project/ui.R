@@ -49,8 +49,8 @@ shinyUI(
     
     tabPanel("Introduction",
              icon = icon("home"),
-             titlePanel(tags$h2("About Charlottesville")),
-             
+             tags$h2("About Charlottesville"),
+           
              tags$div(
                id = "intro",
                HTML("<p>  &nbsp </p>"), img(src = "banner_photo.jpg", width = "70%"), 
@@ -69,6 +69,7 @@ shinyUI(
                  sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
                )
                  )
+             
                  ),
     
     #--------------------------Time Trends----------------#
@@ -89,10 +90,10 @@ shinyUI(
                       hr(),
                       tags$div(class = "subtitle", "Filtering Options"),
                    HTML("<p></p>"), 
-                    radioButtons("data_type", label = h4("Choose Data"),
+                    radioButtons("data_type_1", label = h4("Choose Data"),
                                 choices = list("New York Times" = "NYT", "Twitter" = "Twitter"), 
                                 selected = "NYT"),
-                   sliderInput("choose_date", label = h5("Select a Date Range"), min = 16, 
+                   sliderInput("choose_date_1", label = h5("Select a Date Range"), min = 16, 
                                max = 19, step = 1, value = c(17, 18), ticks = FALSE, pre = "AUG ", post = ", 2016")
           
                    ),
@@ -107,7 +108,8 @@ shinyUI(
     #----------------------------Twitter Engagements---------------------------------#
     tabPanel("Twitter Engagements",
              icon = icon("twitter"),
-             
+             tags$div(
+               id = "container", 
              sidebarLayout(
                
                sidebarPanel(
@@ -121,58 +123,93 @@ shinyUI(
                  hr(),
                  tags$div(class = "subtitle", "Filtering Options"),
                  HTML("<p></p>"), 
-              
-                 sliderInput("choose_date", label = h5("Select a Date Range"), min = 16, 
+                 sliderInput("choose_date_2", label = h5("Select a Date Range"), min = 16, 
                              max = 19, step = 1, value = c(17, 18), ticks = FALSE, pre = "AUG ", post = ", 2016")
                  
                  ),
                
                mainPanel(
-                 plotlyOutput("mean_goal_main_category"),
-                 plotlyOutput("mean_goal_sub_category")
+                 plotlyOutput("mean_goal_main_category")
                ),
                position = "left"
                  )
+             )
              ),
     
     #--------------------------------Sentiment Analysis-----------------------------#
     tabPanel("Tweet Sentiment Analysis",
              icon = icon("meh"),
-             titlePanel(tags$h5("Where do the backers' investment go?")),
-             
              tags$div(
-               id = "sankey",
-               plotlyOutput("sankey")
+               id = "container", 
+               sidebarLayout(
+                 
+                 sidebarPanel(
+                   id = "sidebar",
+                   tags$div(class = "title", "Analysis of Tweet Length"), 
+                   hr(),
+                   tags$div(class = "content", "This section analyzes average length of tweets
+                            and how these numbers are affected by different features of the 
+                            tweet including whether the tweet has @ mentions, hashtags,
+                            media links which include images or external articles, or are retweets."), 
+                   hr(),
+                   tags$div(class = "subtitle", "Filtering Options"),
+                   HTML("<p></p>"), 
+                   radioButtons("data_type_3", label = h4("Choose Data"),
+                                choices = list("New York Times" = "New York Times", "Twitter" = "Twitter"), 
+                                selected = "NYT"),
+                   radioButtons("date_range", label = h4("Choose Data"),
+                                choices = list("Aug 15" = "15", "Aug 16" = "16",
+                                               "Aug 17" = "17", "Aug 18" = "18"), 
+                                selected = "15")
+                 ),
+                 mainPanel(
+                   plotlyOutput("mean_goal_main_category")
+                 ),
+                 position = "left"
+                 )
+               
              )
-             ),
+    ),
+    
     
     #--------------------------------Twitter User Analysis-----------------------------#
     tabPanel("Twitter User Analysis",
              icon = icon("mobile-alt"),
              tags$div(
-               id = "container",
-               titlePanel(tags$h5("Backer's Investment Information")),
+               id = "container", 
                sidebarLayout(
+                 
                  sidebarPanel(
                    id = "sidebar",
-                   uiOutput("backer_ui")
-                   ),
+                   tags$div(class = "title", "Analysis of Twitter + NYT Sentiment"), 
+                   hr(),
+                   tags$div(class = "content", "Using a natural language processor,
+                            this section analyzes the sentiment of the related media and whether it
+                            is more positive or negative over time. Words in articles and tweets
+                            are sorted by whether they are positive or negative and the following
+                            graphics depict the most commonly used words as well as its 
+                            overall trend."), 
+                   hr(),
+                   tags$div(class = "subtitle", "Filtering Options"),
+                   HTML("<p></p>")
+                   ), 
+                   
                  
                  mainPanel(
-                   plotlyOutput("backers")
+                   plotlyOutput("mean_goal_main_category")
+                 ),
+                 position = "left"
                  )
-                   )
                )
-             ),
+             
+    ),
+    
     #-----------------------------About Page------------------------------#
     tabPanel("About Our Group",
              icon = icon("users"),
              tags$div(
-               id = "container",
-               "This project was created by Max Beeson, Liangqi Cai, Divya Rajasekhar, YuYu Madigan
-               in June of 2019 for the Informatics 201 Lecture B final project. This uses data from",
-               tags$a(href = "https://www.kaggle.com/vincela9/charlottesville-on-twitter#aug17_sample.csv", "Kaggle"),
-               " as well as "      
+               id = "container"
+                 
                
              )
     )
