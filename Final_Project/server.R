@@ -9,6 +9,7 @@ library("tidytext")
 library("tidyr")
 library("plotly")
 library("jsonlite")
+library("RColorBrewer")
 data(stop_words)
 
 
@@ -66,5 +67,10 @@ shinyServer(function(input, output) {
   output$top_words <- renderPlot({
     df <- return_df(input$data_type_3, input$choose_date_3)
     make_plot(input$data_type_3, input$choose_date_3, df, input$sentiments, input$n_words)
+  })
+  
+  output$analysis_1 <- renderText({
+
+    paste("One thing we found notable about this was the ")
   })
 })

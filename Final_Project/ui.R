@@ -31,6 +31,13 @@ shinyUI(
                       font-weight: bold;
                       margin-left: auto;
                       margin-right: auto
+                      } 
+                      #intro img{
+                        display: block;
+                        margin-left: auto;
+                        margin-right: auto;
+                        margin-top: 1.5em;
+                        
                       }
                       .plot {
                         padding: 1.25em;
@@ -60,8 +67,14 @@ shinyUI(
                         float: left;
 
                       }
+                    #intro-content {
+                      padding: 2em;
+                      margin: 1em;
+                      font-size: 1.2em;
+                    }
                     .member img{
                         width: 100%;
+                        margin-bottom: .6em;
                       }
                       .member a{
                         font-weight: bold;
@@ -70,8 +83,21 @@ shinyUI(
                       .member .name{
                         text-align: center;
                         font-weight: bold;
+                        margin-bottom: .6em;
                       }
-                      
+                      .member hr{
+                        width: 60%;
+                      }
+                      .analysis {
+                        margin: 1em;
+                        margin-left: -.5em;
+                        border: 2px solid black;
+                        border-radius: 5px; 
+                        padding: 1em;
+                      }
+                      .analysis .title {
+      
+                      }
                       
                   "))
       ),
@@ -83,9 +109,9 @@ shinyUI(
              
              tags$div(
                id = "intro",
-               HTML("<p>  &nbsp </p>"), img(src = "banner_photo.jpg", width = "70%"), 
+                img(src = "cover_photo.jpg", width = "50%"), 
                tags$div(
-                 id = "container",
+                 id = "intro-content",
                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                  Integer pharetra venenatis ante vitae laoreet. 
                  Cras consequat mauris in posuere pretium. Pellentesque quis tortor neque. 
@@ -101,7 +127,7 @@ shinyUI(
                  )
                  ),
     
-    #--------------------------Time Trends----------------#
+    #--------------------------1: Time Trends----------------#
     tabPanel("Time Trends",
              icon = icon("chart-line"),
              tags$div(
@@ -134,7 +160,8 @@ shinyUI(
                  mainPanel(
                    tags$div(class = "plot", 
                    plotlyOutput("first-plot")
-                   )
+                   ),
+                   tags$div(class = "analysis", textOutput("analysis_1"))
                  )
                    )
                  )
@@ -165,13 +192,13 @@ shinyUI(
                mainPanel(
                  tags$div(class = "plot",
                    plotlyOutput("length_counts")
-                 )
+                 ), tags$div(class = "analysis", textOutput("analysis_2"))
                ),
                position = "left"
                  )
              ),
     
-    #--------------------------------Sentiment Analysis-----------------------------#
+    #--------------------------------3: Sentiment Analysis-----------------------------#
     tabPanel("Tweet Sentiment Analysis",
              icon = icon("meh"),
              sidebarLayout(
@@ -199,15 +226,17 @@ shinyUI(
                  radioButtons("sentiments", label = h4("Choose Sentiment"),
                               choices = list("Positive" = "Positive", "Negative" = "Negative", "All Words" = "All Words"), 
                               selected = "Positive"),
-                 numericInput("n_words", label = h3("How Many Words?"), value = 1, min = 1, max = 20)
+                 numericInput("n_words", label = h3("How Many Words?"), value = 5, min = 1, max = 20)
                  ),
                
                mainPanel(
                  tags$div(class = "plot",
                           plotlyOutput("pie_charts"),
                           plotOutput("top_words")
-                 )
+                 ), tags$div(class = "analysis", textOutput("analysis_3"))
+                 
                ),
+              
                position = "left"
                )
              ),
@@ -248,21 +277,25 @@ shinyUI(
                tags$div(class = "member", 
                         img(src = "max.jpg"),
                         tags$div(class = "name", "Max Beeson"),
+                        hr(),
                         tags$div(class = "description", "Max Beeson is a Sophomore in the Foster School of Business.")),
                 
                tags$div(class = "member", 
                         img(src = "cai.gif"),
                         tags$div(class = "name", "Liangqi Cai"),
+                        hr(),
                         tags$div(class = "description", "Lianqi Cai is a junior studying ??")),
              
              tags$div(class = "member", 
                       img(src = "divya.jpg"),
                       tags$div(class = "name", "Divya Rajasekhar"),
+                      hr(),
                                 tags$div(class = "description", "Divya Rajasekhar is a Junior studying ACMS.")),
               
               tags$div(class = "member", 
                        img(src = "YuYu.png"),
                        tags$div(class = "name", "YuYu Madigan"),
+                       hr(),
                        tags$div(class = "description", "YuYu Madigan is a freshman studying informatics."))
             
         
