@@ -30,6 +30,5 @@ twitter_popularity <- function(data) {
          paper_bgcolor = "transparent",
          plot_bgcolor = "transparent")
   
-
 }
 

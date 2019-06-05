@@ -236,35 +236,35 @@ shinyUI(
                )
              ),
     #--------------------------------Twitter User Analysis-----------------------------#
-    tabPanel("Twitter User Analysis",
-             icon = icon("mobile-alt"),
-             sidebarLayout(
-               
-               sidebarPanel(
-                 id = "sidebar",
-                 tags$div(class = "title", "Analysis of Twitter User"), 
-                 hr(),
-                 tags$div(class = "content", "This section analyzes how the twitter user
-                                  engages with their enviornment and the platform."), 
-                 hr(),
-                 tags$div(class = "subtitle", "Filtering Options"),
-                 HTML("<p></p>"), 
-                 checkboxGroupInput("choose_date_3", label = h4("Select a Date Range"),
-                                    choices = list("Aug 15" = "15", "Aug 16" = "16",
-                                                   "Aug 17" = "17", "Aug 18" = "18"
-                                    ), selected = "18")
-                 ),
-               
-               mainPanel(
-                 tags$div(class = "plot",
-                          plotlyOutput("final_chart")
-                          
-                 )
-                 
-               )
-               )
-             
-    ),
+    # tabPanel("Twitter User Analysis",
+    #          icon = icon("mobile-alt"),
+    #          sidebarLayout(
+    #            
+    #            sidebarPanel(
+    #              id = "sidebar",
+    #              tags$div(class = "title", "Analysis of Twitter User"), 
+    #              hr(),
+    #              tags$div(class = "content", "This section analyzes how the twitter user
+    #                               engages with their enviornment and the platform."), 
+    #              hr(),
+    #              tags$div(class = "subtitle", "Filtering Options"),
+    #              HTML("<p></p>"), 
+    #              checkboxGroupInput("choose_date_4", label = h4("Select a Date Range"),
+    #                                 choices = list("Aug 15" = "15", "Aug 16" = "16",
+    #                                                "Aug 17" = "17", "Aug 18" = "18"
+    #                                 ), selected = "18")
+    #              ),
+    #            
+    #            mainPanel(
+    #              tags$div(class = "plot",
+    #                       plotlyOutput("final_chart")
+    #                       
+    #              )
+    #              
+    #            )
+    #            )
+    #          
+    # ),
     #-----------------------------About Page------------------------------#
     tabPanel("About Our Group",
              titlePanel("Meet the Team"),
@@ -297,7 +297,7 @@ shinyUI(
                                           tags$div(class = "description", "Divya Rajasekhar is a Junior studying ACMS.")),
                                  
                                  tags$div(class = "member", 
-                                          img(src = "YuYu.png"),
+                                          img(src = "yuyu.png"),
                                           tags$div(class = "name", "YuYu Madigan"),
                                           tags$div(class = "description", "YuYu Madigan is a freshman studying informatics."))
                                  
