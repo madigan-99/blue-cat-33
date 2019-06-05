@@ -12,15 +12,38 @@ shinyUI(
                       html, body {
                       min-height:100%;
                       overflow:auto;
+                      font-family: Helvetica
                       }      
                       #sidebar{
                       background-color: transparent;
                       text-align: left;
                       }
-                      .sliderInput {
-                      background-color: red;
+                      .subtitle {
+                      margin-right: auto;
+                      text-align: center;
+                      font-size: 1.75em;
+                      margin-left: auto;
                       }
-                    "))
+                      .title {
+                        font-size: 1.75em;
+                        width: 80%;
+                      text-align: center;
+                      font-weight: bold;
+                      margin-left: auto;
+                      margin-right: auto
+                      }
+                      
+                      hr {
+                        width: 90%;
+                        color: white;
+                      }
+                      .content {
+                        font-size: 1.1em;
+                      }
+  
+
+ 
+                  "))
       ),
     
     
@@ -52,14 +75,27 @@ shinyUI(
     tabPanel("Time Trends",
              icon = icon("chart-line"),
              tags$div(
-               id = "container", titlePanel(tags$h5("Success Rate")),
-               
+               id = "container", 
                sidebarLayout(
                  sidebarPanel(
                    id = "sidebar",
-                   uiOutput("line_ui1"),
-                   uiOutput("line_ui2")
+                   
+                   tags$div(class = "title", "Analyses of Time and Attention"),
+                      hr(),
+                      tags$div(class = "content", "This section analyzes the trends in articles and 
+                               tweets during the four day period."), 
+                      hr(),
+                      tags$div(class = "subtitle", "Filtering Options"),
+                   HTML("<p></p>"), 
+                    radioButtons("data_type", label = h4("Choose Data"),
+                                choices = list("New York Times" = "NYT", "Twitter" = "Twitter"), 
+                                selected = "NYT"),
+                   sliderInput("choose_date", label = h5("Select a Date Range"), min = 16, 
+                               max = 19, step = 1, value = c(17, 18), ticks = FALSE, pre = "AUG ", post = ", 2016")
+                   
+                   
                    ),
+                 
                  mainPanel(
                    plotlyOutput("rate"),
                    plotlyOutput("line_rate")
