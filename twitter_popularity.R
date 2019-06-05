@@ -11,6 +11,12 @@ twitter_popularity <- function(data) {
   favorites_sorted <- filter_data %>% group_by(user_favorites_count) %>% summarise(avg_len = mean(length))
   friends_sorted <- filter_data %>% group_by(friends_count) %>% summarise(avg_len = mean(length))
   
-#p <- plot_ly(data, )
+  #combine multiple scatter plots 
+  #p <- plot_ly(data, x = ~followers_sorted, y = ~statuses_sorted, favorites_sorted, friends_sorted, type = "scatter", 
+    #title = "Comparing Twitter Followers to Users' Activity") %>%
+    #layout(title = "Comparing # of Twitter Followers to Users' # of Friends, # of Favorites, and # of Statuses", 
+            #xaxis = 
+            #yaxis =
+            #scatter.smooth
     
 }
