@@ -30,7 +30,9 @@ twitter_bar_plot <- function(dfs, day, pos_or_neg, n_words) {
   twitter_ggtheme <- theme(axis.text.x = element_text( size = 8, angle = 90))
   
   twitter_plot <- ggplot(data = top_twenty_words_twitter, aes(x = word, y = n)) +
-    geom_col(stat = "identity")
+    geom_col() +
+    labs(x =  "Frequently Used Words", y = "Frequency") +
+    scale_fill_brewer(palette = "Paired")
   
   
   show(twitter_plot + twitter_ggtheme + twitter_ggtitle)
@@ -60,7 +62,10 @@ nyt_bar_plot <- function(dfs, day, pos_or_neg, n_words) {
   nyt_ggtheme <- theme(axis.text.x = element_text( size = 8, angle = 90))
   
   nyt_plot <- ggplot(data = top_twenty_words_nyt,aes(x = word, y = n)) +
-    geom_col(stat = "identity")
-  
-  show(nyt_plot + nyt_ggtheme + nyt_ggtitle)
+    geom_col() +
+    labs(x =  "Frequently Used Words", y = "Frequency") +
+    scale_fill_brewer(palette = "Paired") + 
+    
+    
+    show(nyt_plot + nyt_ggtheme + nyt_ggtitle)
 }

@@ -226,7 +226,7 @@ shinyUI(
                  radioButtons("sentiments", label = h4("Choose Sentiment"),
                               choices = list("Positive" = "Positive", "Negative" = "Negative", "All Words" = "All Words"), 
                               selected = "Positive"),
-                 numericInput("n_words", label = h3("How Many Words?"), value = 1, min = 1, max = 20)
+                 numericInput("n_words", label = h3("How Many Words?"), value = 5, min = 1, max = 20)
                  ),
                
                mainPanel(
