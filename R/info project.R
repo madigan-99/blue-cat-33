@@ -73,12 +73,6 @@ first_graph <- function(date, name) {
     )
   }
 }
-<<<<<<< HEAD
-=======
-date <- c("16", "17", "18", "19")
-
-first_graph(date, "NYT")
->>>>>>> a780481f0ab7b143db0bf28ef64eb75e455264e7
 
 
 
