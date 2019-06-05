@@ -95,7 +95,7 @@ shinyUI(
                                 choices = list("New York Times" = "nyt_data", "Twitter" = "Twitter"), 
                                 selected = "nyt_data"),
                    
-                   checkboxGroupInput("choose_date_1", label = h5("Select a Date Range"),
+                   checkboxGroupInput("choose_date_1", label = h4("Select a Date Range"),
                                choices = list("Aug 15" = "15", "Aug 16" = "16",
                                               "Aug 17" = "17", "Aug 18" = "18",
                                               "Aug 19" = "19"), 
@@ -128,7 +128,7 @@ shinyUI(
                  hr(),
                  tags$div(class = "subtitle", "Filtering Options"),
                  HTML("<p></p>"), 
-                 checkboxGroupInput("choose_date_2", label = h5("Select a Date Range"),
+                 checkboxGroupInput("choose_date_2", label = h4("Select a Date Range"),
                                     choices = list("Aug 15" = "15", "Aug 16" = "16",
                                                    "Aug 17" = "17", "Aug 18" = "18"
                                                    ), selected = "18")
@@ -157,25 +157,27 @@ shinyUI(
                           Charlottesville incident. With an ability to sort through
                           days and indicate a positive or negative graph,
                           one can render the most popular words in said category
-                          and see the shifts ogver the period."), 
+                          and see the shifts over the period."), 
                  hr(),
                  tags$div(class = "subtitle", "Filtering Options"),
                  HTML("<p></p>"), 
                  radioButtons("data_type_3", label = h4("Choose Data"),
                               choices = list("New York Times" = "nyt_data", "Twitter" = "Twitter"), 
                               selected = "Twitter"),
-                 checkboxGroupInput("choose_date_3", label = h5("Select a Date Range"),
+                 radioButtons("choose_date_3", label = h4("Select a Date Range"),
                                     choices = list("Aug 15" = "15", "Aug 16" = "16",
                                                    "Aug 17" = "17", "Aug 18" = "18"
                                     ), selected = "16"),
-                 radioButtons("sentiment", label = h4("Choose Sentiment"),
-                              choices = list("Positive" = "pos", "Negative" = "neg"), 
-                              selected = "pos")
+                 radioButtons("sentiments", label = h4("Choose Sentiment"),
+                              choices = list("Positive" = "Positive", "Negative" = "Negative", "All Words" = "All Words"), 
+                              selected = "Positive"),
+                 numericInput("n_words", label = h3("How Many Words?"), value = 1, min = 1, max = 20)
                  ),
                
                mainPanel(
                  tags$div(class = "plot",
-                          plotlyOutput("changing_tones")
+                          plotlyOutput("pie_charts"),
+                          plotOutput("top_words")
                  )
                ),
                position = "left"

@@ -1,89 +1,66 @@
-#install.packages("tokenizers")
-#install.packages("tidytext")
-library("tidytext")
-library("dplyr")
-library("ggplot2")
-library("tidyr")
-library("plotly")
-library("jsonlite")
-data(stop_words)
-
-
-make_plot <- function(data_source, day, pos_or_neg) {
-  if(data_source == "Twitter"){
-    dfs <- get_twitter_df(day)
-    twitter_bar_plot(dfs, day, pos_or_neg)
-    pct_graph_twitter(dfs, day)
+make_plot <- function(data_source, day, df, pos_or_neg, n_words)
+{
+  if(data_source == "Twitter") {
+    twitter_bar_plot(df, day, pos_or_neg, n_words)
+  } else {
+    nyt_bar_plot(dfs, day, pos_or_neg, n_words)
   }
 }
 
-
-get_twitter_df <- function(twitter_data)
-
-twitter_text_df <- select(twitter_data, full_text)
-twitter_token_df <- unnest_tokens(twitter_text_df, word, full_text)
-
-##Cleaning the new data frame
-twitter_token_df <- twitter_token_df %>%
-  anti_join(stop_words)
-
-twitter_token_df %>%
-  count(word, sort = TRUE) 
-
-twitter_token_df <- filter(twitter_token_df, word != "trump")
-sentiment <- get_sentiments("bing")
-
-
-twitter_words_for_plot <- twitter_token_df %>%
-  inner_join(sentiment) %>%
-  count(word, sentiment, sort = TRUE) %>%
-  ungroup()
-return(twitter_words_for_plot)
-}
-
-
-twitter_bar_plot <- function(df, day, pos_or_neg) {
+twitter_bar_plot <- function(dfs, day, pos_or_neg, n_words) {
   if(pos_or_neg == "Positive") {
-    twitter_words_for_plot <- filter(twitter_words_for_plot, sentiment == "positive")
-    twitter_ggtitle <- ggtitle(paste("Top 20 Most Used", pos_or_neg, 
+    twitter_words_for_plot <- filter(dfs, sentiment == "positive")
+    twitter_ggtitle <- ggtitle(paste("Top", n_words, "Most Used", pos_or_neg, 
                                      "Words in Charlottesville Tweets on August",
                                      day))
   }
   else if(pos_or_neg == "Negative") {
-      twitter_words_for_plot <- filter(twitter_words_for_plot, sentiment == "negative")
-      twitter_ggtitle <- ggtitle(paste("Top 20 Most Used", pos_or_neg, 
-                                       "Words in Charlottesville Tweets on August",
-                                       day))
-  }
-  else if(pos_or_neg == "Positive and Negative") {
-    twitter_ggtitle <- ggtitle(paste("Top 20 Most used Words in Charlottesville Tweets on August",
+    twitter_words_for_plot <- filter(dfs, sentiment == "negative")
+    twitter_ggtitle <- ggtitle(paste("Top", n_words, "Most Used", pos_or_neg, 
+                                     "Words in Charlottesville Tweets on August",
                                      day))
   }
-
-top_twenty_words_twitter <- head(twitter_words_for_plot,20)
-twitter_ggtheme <- theme(axis.text.x = element_text( size = 8, angle = 90))
-
-twitter_plot <- ggplot(data = top_twenty_words_twitter,aes(x = word, y = n)) +
-  geom_col(stat = "indentity")
-
-
-twitter_plot + twitter_ggtheme + twitter_ggtitle
+  else {
+    twitterr_words_for_plot <- df
+    twitter_ggtitle <- ggtitle(paste("Top", n_words, "Most Used Words in Charlottesville Tweets on August",
+                                     day))
+  }
+  
+  top_twenty_words_twitter <- head(twitter_words_for_plot, n_words)
+  twitter_ggtheme <- theme(axis.text.x = element_text( size = 8, angle = 90))
+  
+  twitter_plot <- ggplot(data = top_twenty_words_twitter, aes(x = word, y = n)) +
+    geom_col(stat = "identity")
+  
+  
+  show(twitter_plot + twitter_ggtheme + twitter_ggtitle)
 }
 
-pct_graph_twitter<- function(data_frame_twitter, day)
-{
-twitter_summary <- group_by(twitter_words_for_plot, sentiment) %>%
-    summarise(
-      s_sum = sum(n)
-    )
-total_words <- sum(twitter_summary$s_sum)
-twitter_summary_pct <- mutate(twitter_summary,ratio=s_sum/sum(twitter_summary$s_sum))
-p <- plot_ly(twitter_summary_pct, labels = ~sentiment, values = ~s_sum, type = 'pie') %>%
-  layout(title = paste("Percentage of Positive and Negative Tweets on August", day),
-         xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-         yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
-p
+nyt_bar_plot <- function(dfs, day, pos_or_neg, n_words) {
+  if(pos_or_neg == "Positive") {
+    nyt_words_for_plot <- filter(dfs, sentiment == "positive")
+    nyt_ggtitle <- ggtitle(paste("Top", n_words, "Most Used", pos_or_neg, 
+                                 "Words in NYT Charlottesville Coverage on August",
+                                 day))
+  }
+  else if(pos_or_neg == "Negative") {
+    nyt_words_for_plot <- filter(dfs, sentiment == "negative")
+    nyt_ggtitle <- ggtitle(paste("Top", n_words, "Most Used",  pos_or_neg, 
+                                 "Words in NYT Charlottesville Coverage on August",
+                                 day))
+  }
+  else {
+    nyt_words_for_plot <- dfs
+    nyt_ggtitle <- ggtitle(paste("Top", n_words, "Most Used",
+                                 "Words in NYT Charlottesville Coverage on August",
+                                 day))
+  }
+  
+  top_twenty_words_nyt <- head( nyt_words_for_plot,n_words)
+  nyt_ggtheme <- theme(axis.text.x = element_text( size = 8, angle = 90))
+  
+  nyt_plot <- ggplot(data = top_twenty_words_nyt,aes(x = word, y = n)) +
+    geom_col(stat = "identity")
+  
+  show(nyt_plot + nyt_ggtheme + nyt_ggtitle)
 }
-
-nyt_data <- read.csv("data/nyt_data.csv", stringsAsFactors = FALSE)
-
