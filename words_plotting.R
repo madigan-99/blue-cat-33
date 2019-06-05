@@ -9,33 +9,6 @@ library("jsonlite")
 data(stop_words)
 
 
-begin_date <- "20170805"
-end_date <- "20170825"
-term <- "Charlottesville+Virginia"
-nyt_key <- "z8ha000iwkU3s7jPUSsH1wG2LfaGVSoZ"
-
-nyt_url <- paste0("http://api.nytimes.com/svc/search/v2/articlesearch.json?q=",term,
-                  "&begin_date=",begin_date,"&end_date=",end_date,
-                  "&facet_filter=true&api-key=",nyt_key, sep="")
-
-initialQuery <- fromJSON(nyt_url)
-maxPages <- round((initialQuery$response$meta$hits[1] / 10)-1) 
-pages <- list()
-for(i in 0:maxPages){
-  nytSearch <- fromJSON(paste0(nyt_url, "&page=", i), flatten = TRUE) %>% data.frame() 
-  message("Retrieving page ", i)
-  pages[[i+1]] <- nytSearch 
-  Sys.sleep(5) 
-}
-
-nyt_data <- rbind_pages(pages)
-
-
-
-
-
-
-
 make_plot <- function(data_source, day, pos_or_neg)
 {
 if(data_source == "Twitter")
@@ -117,9 +90,6 @@ twitter_plot <- ggplot(data = top_twenty_words_twitter,aes(x = word, y = n)) +
 twitter_plot + twitter_ggtheme + twitter_ggtitle
 }
 
-
-
-
 pct_graph_twitter<- function(data_frame_twitter, day)
 {
 twitter_summary <- group_by(twitter_words_for_plot, sentiment) %>%
@@ -134,22 +104,5 @@ p <- plot_ly(twitter_summary_pct, labels = ~sentiment, values = ~s_sum, type = '
          yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 p
 }
-
-
-begin_date <- "20170805"
-end_date <- "20170825"
-term <- "Charlottesville+Virginia"
-nyt_key <- "z8ha000iwkU3s7jPUSsH1wG2LfaGVSoZ"
-
-nyt_url <- paste0("http://api.nytimes.com/svc/search/v2/articlesearch.json?q=",term,
-                  "&begin_date=",begin_date,"&end_date=",end_date,
-                  "&facet_filter=true&api-key=",nyt_key, sep="")
-
-
-
-
-
-
-
 
 
