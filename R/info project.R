@@ -8,30 +8,9 @@ library("ggplot2")
 library("lubridate")
 library(plotly)
 
-twitter <- read.csv("C:/Junior Year/INFO/blue-cat-33/data/tweet_count_time_series.csv", stringsAsFactors = FALSE)
-# Get data through NYT API
-begin_date <- "20170805"
-end_date <- "20170825"
-term <- "Charlottesville+Virginia"
-source("~/key.R")
+twitter <- read.csv("data/tweet_count_time_series.csv", stringsAsFactors = FALSE)
+NYT <- read.csv("data/nyt_data.csv")
 
-nyt_url <- paste0("http://api.nytimes.com/svc/search/v2/articlesearch.json?q=",term,
-                  "&begin_date=",begin_date,"&end_date=",end_date,
-                  "&facet_filter=true&api-key=",nyt_key, sep="")
-
-initialQuery <- fromJSON(nyt_url)
-maxPages <- round((initialQuery$response$meta$hits[1] / 10)-1) 
-pages <- list()
-for(i in 0:maxPages){
-  nytSearch <- fromJSON(paste0(nyt_url, "&page=", i), flatten = TRUE) %>% data.frame() 
-  message("Retrieving page ", i)
-  pages[[i+1]] <- nytSearch 
-  Sys.sleep(5) 
-}
-
-nyt_data <- rbind_pages(pages)
-
-View(nyt_data)
 
 # Make plot function
 
