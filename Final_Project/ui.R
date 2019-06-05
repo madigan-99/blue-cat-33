@@ -146,14 +146,41 @@ shinyUI(
     #--------------------------------Sentiment Analysis-----------------------------#
     tabPanel("Tweet Sentiment Analysis",
              icon = icon("meh"),
-             titlePanel(tags$h5("Where do the backers' investment go?")),
-             
-             tags$div(
-               id = "sankey",
-               plotlyOutput("sankey")
-             )
+             sidebarLayout(
+               
+               sidebarPanel(
+                 id = "sidebar",
+                 tags$div(class = "title", "Analysis of Changing Sentiment"), 
+                 hr(),
+                 tags$div(class = "content", "This section analyzes a nationally
+                          changing sentiment in reports and discourse regarding the
+                          Charlottesville incident. With an ability to sort through
+                          days and indicate a positive or negative graph,
+                          one can render the most popular words in said category
+                          and see the shifts ogver the period."), 
+                 hr(),
+                 tags$div(class = "subtitle", "Filtering Options"),
+                 HTML("<p></p>"), 
+                 radioButtons("data_type_3", label = h4("Choose Data"),
+                              choices = list("New York Times" = "nyt_data", "Twitter" = "Twitter"), 
+                              selected = "Twitter"),
+                 checkboxGroupInput("choose_date_3", label = h5("Select a Date Range"),
+                                    choices = list("Aug 15" = "15", "Aug 16" = "16",
+                                                   "Aug 17" = "17", "Aug 18" = "18"
+                                    ), selected = "16"),
+                 radioButtons("sentiment", label = h4("Choose Sentiment"),
+                              choices = list("Positive" = "pos", "Negative" = "neg"), 
+                              selected = "pos")
+                 ),
+               
+               mainPanel(
+                 tags$div(class = "plot",
+                          plotlyOutput("changing_tones")
+                 )
+               ),
+               position = "left"
+               )
              ),
-    
     #--------------------------------Twitter User Analysis-----------------------------#
     tabPanel("Twitter User Analysis",
              icon = icon("mobile-alt"),

@@ -9,33 +9,17 @@ library("jsonlite")
 data(stop_words)
 
 
-make_plot <- function(data_source, day, pos_or_neg)
-{
-if(data_source == "Twitter")
-{
-  dfs <- get_twitter_df(day)
-  twitter_bar_plot(dfs, day, pos_or_neg)
-  pct_graph_twitter(dfs, day)
-}
+make_plot <- function(data_source, day, pos_or_neg) {
+  if(data_source == "Twitter"){
+    dfs <- get_twitter_df(day)
+    twitter_bar_plot(dfs, day, pos_or_neg)
+    pct_graph_twitter(dfs, day)
+  }
 }
 
 
-get_twitter_df <- function(day)
-{
-if(day == "15")
-{
-  twitter_data <- read.csv("data/aug15_sample.csv", stringsAsFactors = F)
-} else if(day == "16")
-{
-  twitter_data <- read.csv("data/aug16_sample.csv", stringsAsFactors = F)
-} else if(day == "17")
-{
-  twitter_data <- read.csv("data/aug17_sample.csv", stringsAsFactors = F)
-} else if(day == "18")
-{
-  twitter_data <- read.csv("data/aug18_sample.csv", stringsAsFactors = F) 
-}
-  
+get_twitter_df <- function(twitter_data)
+
 twitter_text_df <- select(twitter_data, full_text)
 twitter_token_df <- unnest_tokens(twitter_text_df, word, full_text)
 
@@ -58,27 +42,23 @@ return(twitter_words_for_plot)
 }
 
 
-twitter_bar_plot <- function(df, day, pos_or_neg)
-{
-if(pos_or_neg == "Positive")
-{
-  twitter_words_for_plot <- filter(twitter_words_for_plot, sentiment == "positive")
-  twitter_ggtitle <- ggtitle(paste("Top 20 Most used", pos_or_neg, 
-                                   "Words in Charlottesville Tweets on August",
-                                   day))
-}
-else if(pos_or_neg == "Negative")
-{
-    twitter_words_for_plot <- filter(twitter_words_for_plot, sentiment == "negative")
+twitter_bar_plot <- function(df, day, pos_or_neg) {
+  if(pos_or_neg == "Positive") {
+    twitter_words_for_plot <- filter(twitter_words_for_plot, sentiment == "positive")
     twitter_ggtitle <- ggtitle(paste("Top 20 Most Used", pos_or_neg, 
                                      "Words in Charlottesville Tweets on August",
                                      day))
-}
-else if(pos_or_neg == "Positive and Negative")
-{
-  twitter_ggtitle <- ggtitle(paste("Top 20 Most used Words in Charlottesville Tweets on August",
-                                   day))
-}
+  }
+  else if(pos_or_neg == "Negative") {
+      twitter_words_for_plot <- filter(twitter_words_for_plot, sentiment == "negative")
+      twitter_ggtitle <- ggtitle(paste("Top 20 Most Used", pos_or_neg, 
+                                       "Words in Charlottesville Tweets on August",
+                                       day))
+  }
+  else if(pos_or_neg == "Positive and Negative") {
+    twitter_ggtitle <- ggtitle(paste("Top 20 Most used Words in Charlottesville Tweets on August",
+                                     day))
+  }
 
 top_twenty_words_twitter <- head(twitter_words_for_plot,20)
 twitter_ggtheme <- theme(axis.text.x = element_text( size = 8, angle = 90))
