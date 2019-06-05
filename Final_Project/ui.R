@@ -32,68 +32,61 @@ shinyUI(
                       margin-left: auto;
                       margin-right: auto
                       }
+                      #intro img{
+                        display: block;
+                        margin-left: auto;
+                      margin-right: auto;
+                      margin-top: 1.5em;
+                      
+                      }
                       .plot {
-                        padding: 1.25em;
+                      padding: 1.25em;
                       }
                       hr {
-                        width: 90%;
-                        color: white;
+                      width: 90%;
+                      color: white;
                       }
                       .content {
-                        font-size: 1.1em;
+                      font-size: 1.1em;
                       }
                       #full-content {
                       display: table;
                       }
                       #inline-portfolios {
-                        width: 100%; 
+                      width: 100%; 
                       display: table-row;
                       }
                       
                       .member {
-                        width: 18%;
-                        border: 1px solid black;
-                        padding: 1.25em;
-                        margin: .5em;
-                        border-radius: 5px
-                        display: table-cell;
-                        float: left;
-
+                      width: 18%;
+                      border: 1px solid black;
+                      padding: 1.25em;
+                      margin: .5em;
+                      border-radius: 5px
+                      display: table-cell;
+                      float: left;
+                      
                       }
-                    .member img{
-                        width: 100%;
+                      #intro-content {
+                      padding: 2em;
+                      margin: 1em;
+                      font-size: 1.2em;
+                      }
+                      .member img{
+                      width: 100%;
+                      margin-bottom: .6em;
                       }
                       .member a{
-                        font-weight: bold;
-                  
+                      font-weight: bold;
+                      
                       }
                       .member .name{
-                        text-align: center;
-                        font-weight: bold;
-                        margin-bottom: .6em;
+                      text-align: center;
+                      font-weight: bold;
+                      margin-bottom: .6em;
                       }
                       .member hr{
-                        width: 60%;
-                      }
-                      
-                      .analysis{
-                        margin: 1em;
-                        margin-left: -.5em;
-                        border: 1.5px solid black;
-                        border-radius: 5px; 
-                        padding-left: 1.5em;
-                        padding-right: 1.5em;
-                        padding-bottom: 1.5em;
-                      }
-                      .analysis h2 {
-                        margin-left: 5%;
-                      }
-                      .analysis hr {
-                        width: 90%;
-                      }   
-                      .analysis-title {
-                        color: #FFF;
-                        font-size: 2em;
+                      width: 60%;
                       }
                       
                       
@@ -107,7 +100,7 @@ shinyUI(
              
              tags$div(
                id = "intro",
-               HTML("<p>  &nbsp </p>"), img(src = "banner_photo.jpg", width = "70%"), 
+               HTML("<p>  &nbsp </p>"), img(src = "cover-photo.jpg", width = "60%"), 
                tags$div(
                  id = "container",
                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
