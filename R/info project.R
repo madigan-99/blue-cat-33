@@ -62,11 +62,10 @@ date <- c("16", "17", "18", "19")
 first_graph(date, "NYT")
 
 
+static_nyt_file <- select(nyt_data, response.docs.snippet, response.docs.lead_paragraph, response.docs.abstract,
+                          response.docs.document_type,response.docs.type_of_material)
 
-
-
-
-
+write.csv(static_nyt_file, file = "nyt_data.csv", row.names = FALSE)
 
 
 
