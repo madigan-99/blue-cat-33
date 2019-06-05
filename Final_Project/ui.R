@@ -93,8 +93,10 @@ shinyUI(
                     radioButtons("data_type_1", label = h4("Choose Data"),
                                 choices = list("New York Times" = "NYT", "Twitter" = "Twitter"), 
                                 selected = "NYT"),
-                   sliderInput("choose_date_1", label = h5("Select a Date Range"), min = 16, 
-                               max = 19, step = 1, value = c(17, 18), ticks = FALSE, pre = "AUG ", post = ", 2016")
+                   checkboxGroupInput("choose_date_1", label = h5("Select a Date Range"), 
+                                      choices = list("Aug 15, 2016" = "15", "Aug 16, 2016" = "16",
+                                                     "Aug 17, 2016" = "17", "Aug 18, 2016" = "18"), 
+                                      selected = "15")
           
                    ),
                  
