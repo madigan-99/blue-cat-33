@@ -1,4 +1,5 @@
-##install.packages("devtools", "jsonlite")
+install.packages("devtools")
+install.packages("tidyr")
 library("jsonlite")
 library("devtools")
 library("dplyr")
@@ -10,7 +11,7 @@ twitter <- read.csv("data/tweet_count_time_series.csv", stringsAsFactors = FALSE
 begin_date <- "20170805"
 end_date <- "20170825"
 term <- "Charlottesville+Virginia"
-source("desktop/key/key.R")
+key <- "z8ha000iwkU3s7jPUSsH1wG2LfaGVSoZ"
 
 nyt_url <- paste0("http://api.nytimes.com/svc/search/v2/articlesearch.json?q=",term,
                   "&begin_date=",begin_date,"&end_date=",end_date,
@@ -28,9 +29,4 @@ for(i in 0:maxPages){
 
 nyt_data <- rbind_pages(pages)
 
-date <- c("16", "17", "18", "19")
-date_19 <- twitter %>% filter(created_at_day == "19")
-for (i in length(date)) {
-  
-}
 
