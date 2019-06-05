@@ -78,10 +78,3 @@ first_graph <- function(date, name) {
 
 
 
-
-
-
-
-
-
-
