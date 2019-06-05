@@ -14,12 +14,12 @@ data(stop_words)
 
 # loading related documents and library, read in dataset
 
-source("../R/info project.R")
-source("../R/twitter-engagements.R")
-source("../R/words_plotting.R")
-source("../R/pie_chart_generator.R")
-source("../R/words_data.R")
-source("../R/twitter_popularity.R")
+source("R/info project.R")
+source("R/twitter-engagements.R")
+source("R/words_plotting.R")
+source("R/pie_chart_generator.R")
+source("R/words_data.R")
+source("R/twitter_popularity.R")
 
 day1 <- read.csv("data/aug15_sample.csv")
 day2 <- read.csv("data/aug16_sample.csv")
@@ -64,26 +64,6 @@ shinyServer(function(input, output) {
   })
   
 
-  output$final_plot <- renderPlotly({
-    dates <- input$choose_date_4
-    df <- data.frame()
-    if(is.element(dates, "15")) {
-      df <- rbind(df, day1)
-    } 
-    if(is.element(dates, "16")) {
-      df <- rbind(df, day2)
-    }
-    if(is.element(dates, "17")) {
-      df <- rbind(df, day3)
-    }
-    if(is.element(dates, "18")) {
-      df <- rbind(df, day4)
-    }
-    
-    twitter_popularity(df)
-    
-  })
-  
 })
 
 
