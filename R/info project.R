@@ -42,12 +42,14 @@ my_color <- c(
 )
 
 first_graph <- function(date, name) {
+  date <- as.character(date)
+  
   if (name == "Twitter") {
     twitter <- read.csv("data/tweet_count_time_series.csv", stringsAsFactors = FALSE)
     twitter_data <- twitter %>% group_by(created_at_day, created_at_hour) %>% summarise(sum_count = sum(tweet_count)) %>%
       filter(created_at_day %in% date)
-    plot_ly(twitter_data, x = ~created_at_hour, y = ~sum_count, name = 'High 2014', type = 'scatter', mode = 'lines', 
-            group = twitter_data$created_at_day, line = list(color = my_color[0:length(date)], width = 4))
+    plot_ly(twitter_data, x = ~created_at_hour, y = ~sum_count, name = 'High 2014', type = 'scatter', mode = 'lines+markers', 
+            color = ~as.character(created_at_day), width = 4)
   } else {
     NYT <- nyt_data %>% mutate(day = day(response.docs.pub_date)) %>% select(day) %>% 
       group_by(day) %>% count(day) %>% filter(day %in% date)
@@ -73,6 +75,7 @@ first_graph <- function(date, name) {
     )
   }
 }
+
 
 
 
