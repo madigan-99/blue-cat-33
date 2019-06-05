@@ -18,6 +18,11 @@ shinyUI(
                       background-color: transparent;
                       text-align: left;
                       }
+                      #text2 {
+                        font-size: 3em;
+                        color: white;
+                        text-align: right;
+                      }
                       .subtitle {
                       margin-right: auto;
                       text-align: center;
@@ -94,15 +99,15 @@ shinyUI(
                                 choices = list("New York Times" = "NYT", "Twitter" = "Twitter"), 
                                 selected = "NYT"),
                    checkboxGroupInput("choose_date_1", label = h5("Select a Date Range"), 
-                                      choices = list("Aug 15, 2016" = "15", "Aug 16, 2016" = "16",
-                                                     "Aug 17, 2016" = "17", "Aug 18, 2016" = "18"), 
-                                      selected = "15")
+                                      choices = list("Aug 15, 2016" = 15, "Aug 16, 2016" = 16,
+                                                     "Aug 17, 2016" = 17, "Aug 18, 2016" = 18), 
+                                      selected = 17)
           
                    ),
                  
                  mainPanel(
-                   plotlyOutput("first-plot")
-        
+                   # plotlyOutput("first-plot"),
+                   textOutput("text1")
                  )
                    )
                  )
@@ -131,7 +136,7 @@ shinyUI(
                  ),
                
                mainPanel(
-                 plotlyOutput("mean_goal_main_category")
+                 textOutput("text2")
                ),
                position = "left"
                  )

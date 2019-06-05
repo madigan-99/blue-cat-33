@@ -29,7 +29,7 @@ first_graph <- function(date, name) {
     plot_ly(twitter_data, x = ~created_at_hour, y = ~sum_count, name = 'High 2014', type = 'scatter', mode = 'lines+markers', 
             color = ~as.character(created_at_day), width = 4)
   } else {
-    NYT <- NYT %>% mutate(day = day(response.docs.pub_date)) %>% select(day) %>% 
+    NYT <- nyt_data %>% mutate(day = day(response.docs.pub_date)) %>% select(day) %>% 
       group_by(day) %>% count(day) %>% filter(day %in% date)
     
     plot_ly(NYT,
