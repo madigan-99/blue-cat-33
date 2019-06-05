@@ -98,7 +98,8 @@ shinyUI(
                    checkboxGroupInput("choose_date_1", label = h5("Select a Date Range"),
                                choices = list("Aug 15" = "15", "Aug 16" = "16",
                                               "Aug 17" = "17", "Aug 18" = "18",
-                                              "Aug 19" = "19"), selected = "15")
+                                              "Aug 19" = "19"), 
+                               selected = c("15", "16", "17","18", "19"))
           
                    ),
                  

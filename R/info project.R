@@ -27,7 +27,15 @@ first_graph <- function(date, name) {
     twitter_data <- twitter %>% group_by(created_at_day, created_at_hour) %>% summarise(sum_count = sum(tweet_count)) %>%
       filter(created_at_day %in% date)
     plot_ly(twitter_data, x = ~created_at_hour, y = ~sum_count, name = 'High 2014', type = 'scatter', mode = 'lines+markers', 
-            color = ~as.character(created_at_day), width = 4)
+            color = ~as.character(created_at_day), width = 4) %>%
+      layout(
+        title = "",
+        font = list(color = "#C0C0C0"),
+        xaxis = list(title = "Date of Publication"),
+        yaxis = list(title = "Number of Published Articles"),
+        paper_bgcolor = "transparent",
+        plot_bgcolor = "transparent")
+      
   } else {
     NYT <- nyt_data %>% mutate(day = day(response.docs.pub_date)) %>% select(day) %>% 
       group_by(day) %>% count(day) %>% filter(day %in% date)
