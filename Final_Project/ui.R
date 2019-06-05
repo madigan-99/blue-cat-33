@@ -42,9 +42,37 @@ shinyUI(
                       .content {
                         font-size: 1.1em;
                       }
-  
+                      #full-content {
+                      display: table;
+                      }
+                      #inline-portfolios {
+                        width: 100%; 
+                      display: table-row;
+                      }
+                      
+                      .member {
+                        width: 18%;
+                        border: 1px solid black;
+                        padding: 1.25em;
+                        margin: .5em;
+                        border-radius: 5px
+                        display: table-cell;
+                        float: left;
 
- 
+                      }
+                    .member img{
+                        width: 100%;
+                      }
+                      .member a{
+                        font-weight: bold;
+                  
+                      }
+                      .member .name{
+                        text-align: center;
+                        font-weight: bold;
+                      }
+                      
+                      
                   "))
       ),
     
@@ -203,15 +231,45 @@ shinyUI(
              ),
     #-----------------------------About Page------------------------------#
     tabPanel("About Our Group",
+             titlePanel("Meet the Team"),
              icon = icon("users"),
              tags$div(
                id = "container",
+               tags$div(id = "full-content",
+               tags$div(id = "inline-portfolios", 
+               tags$div(class = "member",
                "This project was created by Max Beeson, Liangqi Cai, Divya Rajasekhar, YuYu Madigan
                in June of 2019 for the Informatics 201 Lecture B final project. This uses data from",
                tags$a(href = "https://www.kaggle.com/vincela9/charlottesville-on-twitter#aug17_sample.csv", "Kaggle"),
-               " as well as "      
+               " as well as utilizing the ", 
+               tags$a(href = "https://developer.nytimes.com/indexV2.html", "New York Times API")
+               ),
                
+               tags$div(class = "member", 
+                        img(src = "max.jpg"),
+                        tags$div(class = "name", "Max Beeson"),
+                        tags$div(class = "description", "Max Beeson is a Sophomore in the Foster School of Business.")),
+                
+               tags$div(class = "member", 
+                        img(src = "cai.gif"),
+                        tags$div(class = "name", "Liangqi Cai"),
+                        tags$div(class = "description", "Lianqi Cai is a junior studying ??")),
+             
+             tags$div(class = "member", 
+                      img(src = "divya.jpg"),
+                      tags$div(class = "name", "Divya Rajasekhar"),
+                                tags$div(class = "description", "Divya Rajasekhar is a Junior studying ACMS.")),
+              
+              tags$div(class = "member", 
+                       img(src = "YuYu.png"),
+                       tags$div(class = "name", "YuYu Madigan"),
+                       tags$div(class = "description", "YuYu Madigan is a freshman studying informatics."))
+            
+        
+               
+             )
              )
     )
     )
+)
 )
