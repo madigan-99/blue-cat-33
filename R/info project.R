@@ -1,4 +1,5 @@
-##install.packages("devtools", "jsonlite")
+install.packages("devtools")
+install.packages("tidyr")
 library("jsonlite")
 library("devtools")
 library("dplyr")
@@ -7,6 +8,7 @@ library("ggplot2")
 library("lubridate")
 library(plotly)
 
+twitter <- read.csv("C:/Junior Year/INFO/blue-cat-33/data/tweet_count_time_series.csv", stringsAsFactors = FALSE)
 # Get data through NYT API
 begin_date <- "20170805"
 end_date <- "20170825"
@@ -15,7 +17,7 @@ source("~/key.R")
 
 nyt_url <- paste0("http://api.nytimes.com/svc/search/v2/articlesearch.json?q=",term,
                   "&begin_date=",begin_date,"&end_date=",end_date,
-                  "&facet_filter=true&api-key=",key, sep="")
+                  "&facet_filter=true&api-key=",nyt_key, sep="")
 
 initialQuery <- fromJSON(nyt_url)
 maxPages <- round((initialQuery$response$meta$hits[1] / 10)-1) 
@@ -28,6 +30,8 @@ for(i in 0:maxPages){
 }
 
 nyt_data <- rbind_pages(pages)
+
+View(nyt_data)
 
 # Make plot function
 
@@ -69,6 +73,12 @@ first_graph <- function(date, name) {
     )
   }
 }
+<<<<<<< HEAD
+=======
+date <- c("16", "17", "18", "19")
+
+first_graph(date, "NYT")
+>>>>>>> a780481f0ab7b143db0bf28ef64eb75e455264e7
 
 
 
