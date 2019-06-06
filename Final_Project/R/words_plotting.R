@@ -3,7 +3,7 @@ make_plot <- function(data_source, day, df, pos_or_neg, n_words)
   if(data_source == "Twitter") {
     twitter_bar_plot(df, day, pos_or_neg, n_words)
   } else {
-    nyt_bar_plot(dfs, day, pos_or_neg, n_words)
+    nyt_bar_plot(df, day, pos_or_neg, n_words)
   }
 }
 
@@ -21,7 +21,7 @@ twitter_bar_plot <- function(dfs, day, pos_or_neg, n_words) {
                                      day))
   }
   else {
-    twitterr_words_for_plot <- df
+    twitter_words_for_plot <- dfs
     twitter_ggtitle <- ggtitle(paste("Top", n_words, "Most Used Words in Charlottesville Tweets on August",
                                      day))
   }
@@ -61,11 +61,12 @@ nyt_bar_plot <- function(dfs, day, pos_or_neg, n_words) {
   top_twenty_words_nyt <- head( nyt_words_for_plot,n_words)
   nyt_ggtheme <- theme(axis.text.x = element_text( size = 8, angle = 90))
   
-  nyt_plot <- ggplot(data = top_twenty_words_nyt,aes(x = word, y = n)) +
+  nyt_plot <- ggplot(data = top_twenty_words_nyt, aes(x = word, y = n)) +
     geom_col() +
     labs(x =  "Frequently Used Words", y = "Frequency") +
-    scale_fill_brewer(palette = "Paired") + 
-    
-    
+    scale_fill_brewer(palette = "Paired") 
+  
     show(nyt_plot + nyt_ggtheme + nyt_ggtitle)
+
+
 }

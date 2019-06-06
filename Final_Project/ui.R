@@ -106,17 +106,42 @@ shinyUI(
                tags$div(
                  id = "intro-content",
                  
-                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                 Integer pharetra venenatis ante vitae laoreet. 
-                 Cras consequat mauris in posuere pretium. Pellentesque quis tortor neque. 
-                 Vestibulum volutpat felis vitae tempus viverra. Vivamus nisl magna, pharetra eget turpis ac,
-                 varius vehicula erat. Cras imperdiet tellus nec est molestie fringilla at sed orci. 
-                 Integer porttitor libero sapien, id mattis erat imperdiet in. Morbi semper convallis
-                 enim vitae consectetur. In varius nulla magna, non ullamcorper turpis cursus ac. 
-                 Nullam eget est sed quam mattis laoreet. Sed orci mi, accumsan eu odio at, aliquam 
-                 ultricies nisi. Aliquam varius, felis id posuere venenatis, dolor ligula posuere sapien, 
-                 sed tempor nunc nulla et elit. Mauris ultrices non eros a tincidunt. Class aptent taciti 
-                 sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
+                 "Two years ago, in August a 'Unite the Right rally in Charlottesville, Virginia 
+                 turned deadly when a 20-year-old Ohio man allegedly 
+                 accelerated his car into a crowd of counter-protesters. This sparked national
+                 discourse and debate, brining up a nation-wide discussion about the role of 
+                 hate, hate-crimes, and hate groups. This began with month-long debates regarding
+                 what the city should do with a statue of a confederate general, Robert E. Lee.
+                 As the city voted to remove this statue knowing that it continued to stand as a symbol
+                 of hate in a divided county, the Neo-Nazi and Alt-Right groups protested. 
+                 On the 12th of August, A group of white nationalists holding lit tiki
+                 torches marched through the campus of the University of Virginia, some 
+                  chanting the Nazi-associated phrase 'bloor and soil'. During this stressful event,
+                 The violence reached its climax at 1:42 p.m. when 
+                  James Alex Fields rammed his car into a crowd of counterprotesters.
+                 This event sparked conntroversy regarding the political sentiment and reaction by Donald 
+                Trump, as all eyes watched too see what he would say in response",tags$br(),tags$br(),  "
+                 Social media has enabled people to voice their thoughts whenever they desire,
+                  to how large or small of an audience they desire. It can be used as a platform to post life 
+                  achievements, raise awareness on a topic, or even to simply rant. As long as people
+                  have a readily available platform to share their feelings, they will continue to do so. 
+                  
+                  Because it is so readily available, social media has drastically changed the way people react
+                  to huge events. Without having to wait for newspapers or for other more traditional media 
+                  sources to receive news, people have the ability to learn about devastating events hours,
+                  even moments after they happen. This means people often post their immediate, visceral 
+                  reactions to an event, which is what we were interested in and wanted to look at further. 
+                  
+                  After the 2015 Charlottesville attack, thousands of people took to Twitter to discuss 
+                  their feelings through hundreds of thousands of tweets, and these sentiments were broadcast 
+                  to everyone. For our project, we decided to focus on these tweets in the four days 
+                  following the incident. We wanted to see trends in the sentiment behind what people 
+                  were tweeting day-to-day, the length of the tweets day-to-day, the number of followers
+                  a user had relative to how active they were on Twitter after the incident, and any 
+                  patterns in when the tweets were posted. In doing so, we found some trends that show 
+                  how social media, more specifically Twitter, has enabled people to share their thoughts 
+                  as fast as they can. 
+                  "
                )
                )
                ),
@@ -222,10 +247,10 @@ shinyUI(
                  radioButtons("sentiments", label = h4("Choose Sentiment"),
                               choices = list("Positive" = "Positive", "Negative" = "Negative", "All Words" = "All Words"), 
                               selected = "Positive"),
-                 numericInput("n_words", label = h3("How Many Words?"), value = 5, min = 1, max = 20)
+                 numericInput("n_words", label = h3("How Many Words?"), value = 5, min = 1, max = 25)
                  ),
                
-               mainPanel(
+               mainPanel( 
                  tags$div(class = "plot",
                           plotlyOutput("pie_charts"),
                           plotOutput("top_words")
@@ -288,7 +313,7 @@ shinyUI(
                                  tags$div(class = "member", 
                                           img(src = "cai.gif"),
                                           tags$div(class = "name", "Liangqi Cai"),
-                                          tags$div(class = "description", "Lianqi Cai is a junior studying ??")),
+                                          tags$div(class = "description", "Lianqi Cai is a Sophomore and undeclared.")),
                                  
                                  tags$div(class = "member", 
                                           img(src = "divya.jpg"),
@@ -298,7 +323,7 @@ shinyUI(
                                  tags$div(class = "member", 
                                           img(src = "yuyu.png"),
                                           tags$div(class = "name", "YuYu Madigan"),
-                                          tags$div(class = "description", "YuYu Madigan is a freshman studying informatics."))
+                                          tags$div(class = "description", "YuYu Madigan is a freshman with an intended major of informatics."))
                                  
                         )
                )
